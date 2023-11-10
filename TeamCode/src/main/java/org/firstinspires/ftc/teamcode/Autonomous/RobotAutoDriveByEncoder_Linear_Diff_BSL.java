@@ -64,7 +64,7 @@ import org.openftc.easyopencv.OpenCvCamera;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Backstage Left Robot: Auto Drive By Encoder Diff", group="Robot")
+@Autonomous(name="Backstage Blue Robot: Auto Drive By Encoder Diff", group="Robot")
 //@Disabled
 public class RobotAutoDriveByEncoder_Linear_Diff_BSL extends LinearOpMode {
 
@@ -120,9 +120,10 @@ public class RobotAutoDriveByEncoder_Linear_Diff_BSL extends LinearOpMode {
     private final double wristDownPosition = 0.4;// 0.5 0.4
 
     private final int armHomePosition = 0;
-    private final int armIntakePosition = 10;
+    private final int armIntakePosition = 200;
     private final int armScoreLeftPosition = -530;
-    private final int armScoreRightPosition = 530;
+    private final double armSpeed=0.3;
+    //private final int armScoreRightPosition = -armScoreLeftPosition;// always
     private final int armShutdownThreshold = 5;
 
     @Override
@@ -160,114 +161,58 @@ public class RobotAutoDriveByEncoder_Linear_Diff_BSL extends LinearOpMode {
                 rightDrive.getCurrentPosition());
         telemetry.update();
 
+        // Initialize gripper and wrist
+        gripper.setPosition(gripperClosedPosition);
+        wrist.setPosition(wristUpPosition);
+        sleep(100);  // pause to display final telemetry message.
+
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         while (opModeIsActive()) {
-
-            //armLeft.setPower(0.3);
-            //armRight.setPower(0.3);
-            gripper.setPosition(gripperClosedPosition);
-            wrist.setPosition(wristUpPosition);
-            sleep(100);  // pause to display final telemetry message.
 
             // Step through each leg of the path,
             // Note: Reverse movement is obtained by setting a negative distance (not speed)
 
             // Drive to weigh point 1
-            encoderDrive(DRIVE_SPEED, 17, 17, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+            encoderDrive(DRIVE_SPEED, 17, 17, 5.0);  // S1: Forward 17 Inches with 5 Sec timeout
             wrist.setPosition(wristDownPosition);
             sleep(100);  // pause to display final telemetry message.
 
-            encoderDrive(DRIVE_SPEED, 12, 12, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
-            gripper.setPosition(gripperOpenPosition);
+            encoderDrive(DRIVE_SPEED, 12, 12, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
+            runtime.reset();
+            if (gripper.getPosition() != gripperOpenPosition)
+            {
+                gripper.setPosition(gripperOpenPosition);// Open Gripper to drop of pixel
+            }
             sleep(100);  // pause to display final telemetry message.
 
-            encoderDrive(DRIVE_SPEED, -3, -3, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
-            gripper.setPosition(gripperClosedPosition);
-            sleep(400);  // pause to display final telemetry message.
+
+            encoderDrive(DRIVE_SPEED, -3, -3, 5.0);  // S1: Forward -3 Inches with 5 Sec timeout
+            runtime.reset();
+            if (gripper.getPosition() != gripperClosedPosition)
+            {
+                gripper.setPosition(gripperClosedPosition);// Open Gripper to drop of pixel
+            }
+            sleep(100);  // pause to display final telemetry message.
             wrist.setPosition(wristUpPosition);
-            encoderDrive(TURN_SPEED, -12, 12, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
-            encoderDrive(DRIVE_SPEED, -39, -39, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
-            //set arm,
-            telemetry.addData("Arm Pos:",
-                    "Actual left = " +
-                            ((Integer) armLeft.getCurrentPosition()).toString() +
-                            ", Actual right = " +
-                            ((Integer) armRight.getCurrentPosition()).toString());
-            telemetry.addData("Arm Pos:",
-                    "left = " +
-                            ((Integer) armLeft.getTargetPosition()).toString() +
-                            ", right = " +
-                            ((Integer) armRight.getTargetPosition()).toString());
+            encoderDrive(TURN_SPEED, -12, 12, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
+            encoderDrive(DRIVE_SPEED, -37, -37, 5.0);  // S1: Forward -38 Inches with 5 Sec timeout
+            encoderArm(armSpeed,armScoreLeftPosition,5.0);
+            runtime.reset();
+            do
+            {
+                gripper.setPosition(gripperOpenPosition);// Open Gripper to drop of pixel
+            } while ( gripper.getPosition() != gripperOpenPosition | (runtime.seconds() < 1.0));
+            sleep(100);
 
-            armLeft.setTargetPosition(armScoreLeftPosition);
-            armRight.setTargetPosition(armScoreRightPosition);
-            //armLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            armRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            armLeft.setPower(-0.3);
-            armRight.setPower(0.3);
-
-
-            while ((armLeft.isBusy() || armRight.isBusy())) {
-                armLeft.setTargetPosition(armScoreLeftPosition);
-                armRight.setTargetPosition(armScoreRightPosition);
-                armLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                armRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                armLeft.setPower(-0.3);
-                armRight.setPower(0.3);
-                // Display it for the driver.
-                telemetry.addData("arm Running to", "left %7d and right %7d ",
-                        armScoreLeftPosition,armScoreRightPosition);
-                telemetry.addData("arm Left Currently at", " at %7d",
-                        armLeft.getCurrentPosition());
-                telemetry.addData("arm Right Currently at", " at %7d",
-                        armRight.getCurrentPosition());
-                telemetry.update();
-            }
-
-            gripper.setPosition(gripperOpenPosition);
-            armLeft.setTargetPosition(0);
-            armRight.setTargetPosition(0);
-            //armLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            armRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            armLeft.setPower(0.3);
-            armRight.setPower(-0.3);
-
-
-            while ((armLeft.isBusy() || armRight.isBusy())) {
-                armLeft.setTargetPosition(0);
-                armRight.setTargetPosition(0);
-                armLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                armRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                armLeft.setPower(0.3);
-                armRight.setPower(-0.3);
-                // Display it for the driver.
-                telemetry.addData("arm Running to", "left %7d and right %7d ",
-                        armScoreLeftPosition,armScoreRightPosition);
-                telemetry.addData("arm Left Currently at", " at %7d",
-                        armLeft.getCurrentPosition());
-                telemetry.addData("arm Right Currently at", " at %7d",
-                        armRight.getCurrentPosition());
-                telemetry.update();
-            }
 
             // Park
             encoderDrive(DRIVE_SPEED, 12, 12, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+            //encoderArm(armSpeed, armIntakePosition,8.0);
+            encoderArm(-armSpeed,armIntakePosition, 5.0);
+            sleep(1000);
             encoderDrive(TURN_SPEED, 9, -9, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
             encoderDrive(DRIVE_SPEED, -25.5, -25.5, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
-
-            //RIGHT encoderDrive(TURN_SPEED,  5,  -5, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
-            //LEFT encoderDrive(TURN_SPEED,  -5,  5, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
-
-
-            //determine if Pixel on central spike
-            // turn to right spike
-            // determine if pixel on right spike
-            // by now we know if pixel is on left, central or right
-            // turn and drop off spike mark in position 1,2 or 3
-            // Move arm down
-            // Move wrist down
-            // Open gripper
 
             if (PIXEL_RANDOMIZED == 1) {
                 ;
@@ -276,15 +221,6 @@ public class RobotAutoDriveByEncoder_Linear_Diff_BSL extends LinearOpMode {
             } else {
                 ;
             }
-            // back up by 1 pixel
-            // grip pixel
-            //turn
-            //drive to board
-            // 3 point turn
-            // Drop off by
-            // moving arm
-            // moving wrist
-            // open gripper
 
 
             telemetry.addData("Path", "Complete");
@@ -353,5 +289,35 @@ public class RobotAutoDriveByEncoder_Linear_Diff_BSL extends LinearOpMode {
 
             sleep(250);   // optional pause after each move.
         }
+    }
+
+    public void encoderArm( double speed,int EncoderTarget,
+                            double timeoutS) {
+            runtime.reset();
+            armLeft.setTargetPosition(EncoderTarget);
+            armRight.setTargetPosition(-EncoderTarget);
+            armLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            armRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            armLeft.setPower(-speed);
+            armRight.setPower(speed);
+
+
+            while ((armLeft.isBusy() || armRight.isBusy()) &&(runtime.seconds() < timeoutS)) {
+                armLeft.setTargetPosition(EncoderTarget);
+                armRight.setTargetPosition(-EncoderTarget);
+                armLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                armRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                armLeft.setPower(-speed);
+                armRight.setPower(speed);
+                // Display it for the driver.
+               telemetry.addData("arm Running to", "left %7d and right %7d ",
+                        EncoderTarget,-EncoderTarget);
+                telemetry.addData("arm Left Currently at", " at %7d",
+                        armLeft.getCurrentPosition());
+                telemetry.addData("arm Right Currently at", " at %7d",
+                        armRight.getCurrentPosition());
+                telemetry.update();
+            }
+
     }
 }

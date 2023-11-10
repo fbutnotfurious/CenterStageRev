@@ -64,9 +64,9 @@ import org.openftc.easyopencv.OpenCvCamera;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Frontstage Right Robot: Auto Drive By Encoder Diff", group="Robot")
+@Autonomous(name="Backstage Red Robot: Auto Drive By Encoder Diff", group="Robot")
 //@Disabled
-public class RobotAutoDriveByEncoder_Linear_Diff_FSR extends LinearOpMode {
+public class RobotAutoDriveByEncoder_Linear_Diff_BSR extends LinearOpMode {
 
     /* Declare OpMode members. */
     private DcMotor         leftDrive   = null;
@@ -179,7 +179,7 @@ public class RobotAutoDriveByEncoder_Linear_Diff_FSR extends LinearOpMode {
             sleep(100);  // pause to display final telemetry message.
 
             encoderDrive(DRIVE_SPEED, 12, 12, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
-            gripper.setPosition(gripperOpenPosition);
+            //gripper.setPosition(gripperOpenPosition);
             sleep(100);  // pause to display final telemetry message.
 
             encoderDrive(DRIVE_SPEED, -3, -3, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
@@ -187,7 +187,7 @@ public class RobotAutoDriveByEncoder_Linear_Diff_FSR extends LinearOpMode {
             sleep(400);  // pause to display final telemetry message.
             wrist.setPosition(wristUpPosition);
             encoderDrive(TURN_SPEED, 12, -12, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
-            encoderDrive(DRIVE_SPEED, -92, -92, 10.0);  // S1: Forward 47 Inches with 5 Sec timeout
+            encoderDrive(DRIVE_SPEED, -38, -38, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
             //set arm,
             telemetry.addData("Arm Pos:",
                     "Actual left = " +

@@ -64,7 +64,7 @@ import org.openftc.easyopencv.OpenCvCamera;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Frontstage Left Robot: Auto Drive By Encoder Diff", group="Robot")
+@Autonomous(name="Frontstage Blue Robot: Auto Drive By Encoder Diff", group="Robot")
 //@Disabled
 public class RobotAutoDriveByEncoder_Linear_Diff_FSL extends LinearOpMode {
 
@@ -179,7 +179,7 @@ public class RobotAutoDriveByEncoder_Linear_Diff_FSL extends LinearOpMode {
             sleep(100);  // pause to display final telemetry message.
 
             encoderDrive(DRIVE_SPEED, 12, 12, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
-            gripper.setPosition(gripperOpenPosition);
+            //gripper.setPosition(gripperOpenPosition);
             sleep(100);  // pause to display final telemetry message.
 
             encoderDrive(DRIVE_SPEED, -3, -3, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
