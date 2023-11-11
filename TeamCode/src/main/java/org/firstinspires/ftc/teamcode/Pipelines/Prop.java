@@ -1,4 +1,7 @@
 package org.firstinspires.ftc.teamcode.Pipelines;
 
-public class Auto_Sammit_Code {
+public enum Prop {
+    LEFT,
+    CENTER,
+    RIGHT
 }

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -40,9 +40,11 @@ public class StarterBot2024TeleopChangesmapping extends OpMode
     private final double launcherInitial=0.0;
     private final double launcherFinal=0.8;
     private boolean hangingStatus=false;
-
-    /*
-     * Code to run ONCE when the driver hits INIT
+    // constant for slow speed
+    private final double driveMotorSlowSpeed = 0.55;
+    //constant for fast speed
+    private final double driveMotorFastSpeed = 0.75;
+     /* Code to run ONCE when the driver hits INIT
      */
     @Override
     public void init() {
@@ -128,8 +130,16 @@ public class StarterBot2024TeleopChangesmapping extends OpMode
         }
        // leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
        // rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
-        leftPower    = Range.clip(drive + turn, -0.55, 0.55) ;//0.5
-        rightPower   = Range.clip(drive - turn, -0.55, 0.55) ;//0.5
+
+        leftPower    = Range.clip(drive + turn, -driveMotorSlowSpeed, driveMotorSlowSpeed) ;//0.55
+        rightPower   = Range.clip(drive - turn, -driveMotorSlowSpeed, driveMotorSlowSpeed) ;//0.55
+
+        if (gamepad2.left_trigger>0)
+        {
+            leftPower    = Range.clip(drive + turn, -driveMotorFastSpeed, driveMotorFastSpeed) ;//0.55
+            rightPower   = Range.clip(drive - turn, -driveMotorFastSpeed, driveMotorFastSpeed) ;//0.55
+
+        }
 
         leftDrive.setPower(leftPower);
         rightDrive.setPower(rightPower);
