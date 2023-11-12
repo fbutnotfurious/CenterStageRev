@@ -37,6 +37,13 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.openftc.apriltag.AprilTagDetection;
 import org.openftc.easyopencv.OpenCvCamera;
+import org.openftc.easyopencv.OpenCvCameraFactory;
+import org.openftc.easyopencv.OpenCvCameraRotation;
+
+import org.firstinspires.ftc.teamcode.Pipelines.Prop;
+import org.firstinspires.ftc.teamcode.Pipelines.StartPosition;
+import org.firstinspires.ftc.teamcode.Pipelines.WebcamPipeline;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 
 /*
  * This OpMode illustrates the concept of driving a path based on encoder counts.
@@ -68,6 +75,7 @@ import org.openftc.easyopencv.OpenCvCamera;
 //@Disabled
 public class RobotAutoDriveByEncoder_Linear_Diff_BSL extends LinearOpMode {
 
+    OpenCvCamera webcam;
     /* Declare OpMode members. */
     private DcMotor         leftDrive   = null;
     private DcMotor         rightDrive  = null;
@@ -166,67 +174,102 @@ public class RobotAutoDriveByEncoder_Linear_Diff_BSL extends LinearOpMode {
         wrist.setPosition(wristUpPosition);
         sleep(100);  // pause to display final telemetry message.
 
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+        WebcamPipeline detector = new WebcamPipeline(telemetry, StartPosition.BLUE_STAGE);
+        webcam.setPipeline(detector);
+
+        webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
+            @Override
+            public void onOpened() {
+                webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
+            }
+            @Override
+            public void onError(int errorCode) {}
+        });
+
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-        while (opModeIsActive()) {
-
-            // Step through each leg of the path,
-            // Note: Reverse movement is obtained by setting a negative distance (not speed)
-
-            // Drive to weigh point 1
-            encoderDrive(DRIVE_SPEED, 17, 17, 5.0);  // S1: Forward 17 Inches with 5 Sec timeout
-            wrist.setPosition(wristDownPosition);
-            sleep(100);  // pause to display final telemetry message.
-
-            encoderDrive(DRIVE_SPEED, 12, 12, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
-            runtime.reset();
-            if (gripper.getPosition() != gripperOpenPosition)
-            {
-                gripper.setPosition(gripperOpenPosition);// Open Gripper to drop of pixel
-            }
-            sleep(100);  // pause to display final telemetry message.
-
-
-            encoderDrive(DRIVE_SPEED, -3, -3, 5.0);  // S1: Forward -3 Inches with 5 Sec timeout
-            runtime.reset();
-            if (gripper.getPosition() != gripperClosedPosition)
-            {
-                gripper.setPosition(gripperClosedPosition);// Open Gripper to drop of pixel
-            }
-            sleep(100);  // pause to display final telemetry message.
-            wrist.setPosition(wristUpPosition);
-            encoderDrive(TURN_SPEED, -12, 12, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
-            encoderDrive(DRIVE_SPEED, -37, -37, 5.0);  // S1: Forward -38 Inches with 5 Sec timeout
-            encoderArm(armSpeed,armScoreLeftPosition,5.0);
-            runtime.reset();
-            do
-            {
-                gripper.setPosition(gripperOpenPosition);// Open Gripper to drop of pixel
-            } while ( gripper.getPosition() != gripperOpenPosition | (runtime.seconds() < 1.0));
-            sleep(100);
-
-
-            // Park
-            encoderDrive(DRIVE_SPEED, 12, 12, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
-            //encoderArm(armSpeed, armIntakePosition,8.0);
-            encoderArm(-armSpeed,armIntakePosition, 5.0);
-            sleep(1000);
-            encoderDrive(TURN_SPEED, 9, -9, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
-            encoderDrive(DRIVE_SPEED, -25.5, -25.5, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
-
-            if (PIXEL_RANDOMIZED == 1) {
-                ;
-            } else if (PIXEL_RANDOMIZED == 2) {
-                ;
-            } else {
-                ;
-            }
-
-
-            telemetry.addData("Path", "Complete");
+        int totalTimeWaited = 0;
+        boolean pipelineRan = true;
+        if(detector.getPropLocation() == null) {
+            telemetry.addData("ERROR", "Start was pressed too soon.");
             telemetry.update();
-            sleep(1000);  // pause to display final telemetry message.
-            terminateOpModeNow();
+
+            while(detector.getPropLocation() == null && totalTimeWaited < 7000) {
+                totalTimeWaited += (webcam.getOverheadTimeMs() * 4);
+                sleep(webcam.getOverheadTimeMs() * 4L);
+            }
+            telemetry.addData("Wasted time", totalTimeWaited);
+            if(totalTimeWaited > 7000) {
+                telemetry.addData("ERROR", "The pipeline never ran.");
+                pipelineRan = false;
+            }
+            telemetry.update();
+        }
+        else {
+            telemetry.addData("INFO", "Pipeline is running correctly");
+            telemetry.update();
+        }
+        Prop location = Prop.CENTER;
+
+        if(pipelineRan) {
+            location = detector.getPropLocation();
+            webcam.stopStreaming();
+            webcam.closeCameraDevice();
+        }
+
+        telemetry.addData("Running path", " BLUE_STAGE_" + location);
+        telemetry.update();
+        while (opModeIsActive())
+        {
+            if (location==Prop.CENTER) {
+                // Step through each leg of the path,
+                // Note: Reverse movement is obtained by setting a negative distance (not speed)
+                ;
+
+                // Drive to weigh point 1
+                encoderDrive(DRIVE_SPEED, 17, 17, 5.0);  // S1: Forward 17 Inches with 5 Sec timeout
+                wrist.setPosition(wristDownPosition);
+                sleep(100);  // pause to display final telemetry message.
+
+                encoderDrive(DRIVE_SPEED, 12, 12, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
+                runtime.reset();
+                if (gripper.getPosition() != gripperOpenPosition) {
+                    gripper.setPosition(gripperOpenPosition);// Open Gripper to drop of pixel
+                }
+                sleep(100);  // pause to display final telemetry message.
+
+
+                encoderDrive(DRIVE_SPEED, -3, -3, 5.0);  // S1: Forward -3 Inches with 5 Sec timeout
+                runtime.reset();
+                if (gripper.getPosition() != gripperClosedPosition) {
+                    gripper.setPosition(gripperClosedPosition);// Open Gripper to drop of pixel
+                }
+                sleep(100);  // pause to display final telemetry message.
+                wrist.setPosition(wristUpPosition);
+                encoderDrive(TURN_SPEED, -12, 12, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
+                encoderDrive(DRIVE_SPEED, -37, -37, 5.0);  // S1: Forward -38 Inches with 5 Sec timeout
+                encoderArm(armSpeed, armScoreLeftPosition, 5.0);
+                runtime.reset();
+                do {
+                    gripper.setPosition(gripperOpenPosition);// Open Gripper to drop of pixel
+                } while (gripper.getPosition() != gripperOpenPosition | (runtime.seconds() < 1.0));
+                sleep(100);
+
+
+                // Park
+                encoderDrive(DRIVE_SPEED, 12, 12, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+                //encoderArm(armSpeed, armIntakePosition,8.0);
+                encoderArm(-armSpeed, armIntakePosition, 5.0);
+                sleep(1000);
+                encoderDrive(TURN_SPEED, 9, -9, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+                encoderDrive(DRIVE_SPEED, -25.5, -25.5, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+                telemetry.addData("Path", "Complete");
+                telemetry.update();
+                sleep(1000);  // pause to display final telemetry message.*/
+                terminateOpModeNow();
+            }
         }
     }
 

@@ -6,6 +6,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
+import org.firstinspires.ftc.teamcode.Pipelines.Prop;
+import org.firstinspires.ftc.teamcode.Pipelines.StartPosition;
+import org.firstinspires.ftc.teamcode.Pipelines.WebcamPipeline;
 
 @TeleOp(name="Starter Bot 2024 Final control", group="Iterative Opmode")
 
