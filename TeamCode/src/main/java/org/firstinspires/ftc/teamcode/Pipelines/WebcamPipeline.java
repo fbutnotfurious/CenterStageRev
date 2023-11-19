@@ -33,7 +33,7 @@ public class WebcamPipeline extends OpenCvPipeline {
     Scalar highHSV;
     Mat mat = new Mat(); // Mat is a matrix
 
-    static double PERCENT_COLOR_THRESHOLD = 0.10;//0.07,0.15,
+    static double PERCENT_COLOR_THRESHOLD = 0.10;//0.15
 
     public WebcamPipeline(Telemetry t, StartPosition position) {
         telemetry = t;

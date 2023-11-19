@@ -12,7 +12,7 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
 @Autonomous
-public class RunPipelineCam2 extends LinearOpMode {
+public class RunPipelineRed extends LinearOpMode {
     OpenCvCamera webcam;
 // pipeline 2 is red
 
