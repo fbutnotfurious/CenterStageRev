@@ -180,6 +180,7 @@ public class RobotAutoDriveByEncoder_Linear_Diff_BSL extends LinearOpMode {
         wrist.setPosition(wristUpPosition);
         sleep(100);  // pause to display final telemetry message.
 
+        // Camera integration
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
         WebcamPipeline detector = new WebcamPipeline(telemetry, StartPosition.BLUE_STAGE);
@@ -230,16 +231,17 @@ public class RobotAutoDriveByEncoder_Linear_Diff_BSL extends LinearOpMode {
         while (opModeIsActive())
         {
             if (location==Prop.CENTER) {
-                // Step through each leg of the path,
                 // Note: Reverse movement is obtained by setting a negative distance (not speed)
-                ;
 
-                // Drive to weigh point 1
-                encoderDrive(DRIVE_SPEED, PathConstants.BSL_FowardPoint1, PathConstants.BSL_FowardPoint1, 5.0);  // S1: Forward 17 Inches with 5 Sec timeout
+                // * Approaching the team prop *
+                //S1: Drive forward for BSL_ForwardPoint1
+                encoderDrive(DRIVE_SPEED, PathConstants.BSL_FowardPoint1, PathConstants.BSL_FowardPoint1, 5.0);
+                //S2: Set the wrist to down position
                 wrist.setPosition(wristDownPosition);
                 sleep(100);  // pause to display final telemetry message.
-
-                encoderDrive(DRIVE_SPEED, PathConstants.BSL_FowardPoint2, PathConstants.BSL_FowardPoint2, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
+                //S3: Drive forward for BSL_FowardPoint2
+                encoderDrive(DRIVE_SPEED, PathConstants.BSL_FowardPoint2, PathConstants.BSL_FowardPoint2, 5.0);
+                //S2: Open the gripper to drop the purple pixel
                 runtime.reset();
                 if (gripper.getPosition() != gripperOpenPosition) {
                     gripper.setPosition(gripperOpenPosition);// Open Gripper to drop of pixel
