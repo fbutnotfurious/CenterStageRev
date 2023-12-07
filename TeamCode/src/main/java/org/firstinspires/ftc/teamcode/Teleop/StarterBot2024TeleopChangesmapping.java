@@ -44,9 +44,9 @@ public class StarterBot2024TeleopChangesmapping extends OpMode
     private final double launcherFinal=0.8;
     private boolean hangingStatus=false;
     // constant for slow speed
-    private final double driveMotorSlowSpeed = 0.55;
+    private final double driveMotorSlowSpeed = 0.35;
     //constant for fast speed
-    private final double driveMotorFastSpeed = 0.75;
+    private final double driveMotorFastSpeed = 0.85;
      /* Code to run ONCE when the driver hits INIT
      */
     @Override
