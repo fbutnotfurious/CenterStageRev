@@ -115,11 +115,15 @@ public class RobotAutoDriveByEncoder_Linear_Diff_BSL extends LinearOpMode {
     // For gearing UP, use a gear ratio less than 1.0. Note this will affect the direction of wheel rotation.
     //REV-41-1291
     //https://docs.revrobotics.com/ultraplanetary/
+
+    // Robot specifications
     static final double     COUNTS_PER_MOTOR_REV    = 28 ;    // eg: HD Hes
     static final double     DRIVE_GEAR_REDUCTION    = 16.5;//20.15293 ;     // 4:1 and 5:1
     static final double     WHEEL_DIAMETER_INCHES   = 3.5433362205 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
                                                       (WHEEL_DIAMETER_INCHES * 3.1415);
+
+    // Calibration details
     static final double     DRIVE_SPEED             = 0.3;//0.6
     static final double     TURN_SPEED              = 0.5;
 
@@ -138,7 +142,7 @@ public class RobotAutoDriveByEncoder_Linear_Diff_BSL extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-        // Initialize the drive system variables.
+        // Initialize the drive system variables. Perform the right hardware mapping
         leftDrive = hardwareMap.get(DcMotor.class, "leftDrive");
         rightDrive = hardwareMap.get(DcMotor.class, "rightDrive");
         armLeft = hardwareMap.get(DcMotor.class, "armLeft");
@@ -157,7 +161,8 @@ public class RobotAutoDriveByEncoder_Linear_Diff_BSL extends LinearOpMode {
 
         armLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         armRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
+        
+        // Enabling RUN_USING_ENCODER for the drive and arm
         leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
