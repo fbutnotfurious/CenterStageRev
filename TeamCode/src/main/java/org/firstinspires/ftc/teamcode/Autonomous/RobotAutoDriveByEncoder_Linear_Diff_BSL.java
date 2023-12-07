@@ -241,45 +241,58 @@ public class RobotAutoDriveByEncoder_Linear_Diff_BSL extends LinearOpMode {
                 sleep(100);  // pause to display final telemetry message.
                 //S3: Drive forward for BSL_FowardPoint2
                 encoderDrive(DRIVE_SPEED, PathConstants.BSL_FowardPoint2, PathConstants.BSL_FowardPoint2, 5.0);
-                //S2: Open the gripper to drop the purple pixel
+
+                //* Drop the purple pixel *
+                //S4: Open the gripper to drop the purple pixel
                 runtime.reset();
                 if (gripper.getPosition() != gripperOpenPosition) {
                     gripper.setPosition(gripperOpenPosition);// Open Gripper to drop of pixel
                 }
                 sleep(100);  // pause to display final telemetry message.
 
-
-                encoderDrive(DRIVE_SPEED, PathConstants.BSL_BackwardPoint1, PathConstants.BSL_BackwardPoint1, 5.0);  // S1: Forward -3 Inches with 5 Sec timeout
+                //S5: Travel backward to prepare for yellow pixel pickup
+                encoderDrive(DRIVE_SPEED, PathConstants.BSL_BackwardPoint1, PathConstants.BSL_BackwardPoint1, 5.0);
                 sleep(100);  // pause to display final telemetry message.
-
+                //* Pick up the yellow pixel *
+                //S6: Close the gripper to pick up the yellow pixel
                 runtime.reset();
                 if (gripper.getPosition() != gripperClosedPosition) {
                     gripper.setPosition(gripperClosedPosition);// Open Gripper to drop of pixel
                 }
                 sleep(100);  // pause to display final telemetry message.
-
+                //S7: Move arm up to perpare for travel
                 wrist.setPosition(wristUpPosition);
                 sleep(100);  // pause to display final telemetry message.
-
-                encoderDrive(DRIVE_SPEED, -1, -1, 5.0);  // S1: Forward -3 Inches with 5 Sec timeout
+                //S8: Drive backward for 1in to ensure the final drop will happen at the center tag
+                encoderDrive(DRIVE_SPEED, -1, -1, 5.0);
 
                 //sleep(100);  // pause to display final telemetry message.
+                //S9: Turn right to face against the backdrop board
+                encoderDrive(TURN_SPEED, PathConstants.BSL_TurnLeft1-1  , -PathConstants.BSL_TurnLeft1+1, 5.0);
 
-                encoderDrive(TURN_SPEED, PathConstants.BSL_TurnLeft1-1  , -PathConstants.BSL_TurnLeft1+1, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
-                encoderDrive(DRIVE_SPEED, PathConstants.BSL_BackwardPoint2, PathConstants.BSL_BackwardPoint2, 5.0);  // S1: Forward -38 Inches with 5 Sec timeout
+                //* Brackdrop board execution
+                //S10: Drive backward for BSL_BackwardPoint2 to approach the board
+                encoderDrive(DRIVE_SPEED, PathConstants.BSL_BackwardPoint2, PathConstants.BSL_BackwardPoint2, 5.0);
+                //S11: Move arm to the score position
                 encoderArm(armSpeed*2, armScoreLeftPosition, 5.0);
+
+                //S12: Open the gripper to drop the yellow pixel
                 runtime.reset();
                 do {
-                    gripper.setPosition(gripperOpenPosition);// Open Gripper to drop of pixel
+                    gripper.setPosition(gripperOpenPosition);
                 } while (gripper.getPosition() != gripperOpenPosition | (runtime.seconds() < 1.0));
                 sleep(100);
 
 
-                // Park
-                encoderDrive(DRIVE_SPEED, 12, 12, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+                //* Parking to destination *
+                //S13: Drive forward 12 in
+                encoderDrive(DRIVE_SPEED, 12, 12, 5.0);
+                //S14: Move are to IntakePosition
                 encoderArm(-armSpeed*2, armIntakePosition, 5.0);
-                encoderDrive(TURN_SPEED, 9, -9, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
-                encoderDrive(DRIVE_SPEED*2, -19.5, -19.5, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+                //S15: Turn left 9in
+                encoderDrive(TURN_SPEED, 9, -9, 5.0);
+                //S16: Drive backward 19.5 in to the final parking postion
+                encoderDrive(DRIVE_SPEED*2, -19.5, -19.5, 5.0);  
                 telemetry.addData("Path", "Complete");
                 telemetry.update();
                 sleep(100);  // pause to display final telemetry message.*/
