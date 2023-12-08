@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.Pipelines.Prop;
 import org.firstinspires.ftc.teamcode.Pipelines.StartPosition;
 import org.firstinspires.ftc.teamcode.Pipelines.WebcamPipeline;
 
-@TeleOp(name="Starter Bot 2024 Final control", group="Iterative Opmode")
+@TeleOp(name="Centerstage Pixel Picker 12-9-2023", group="Iterative Opmode")
 
 public class StarterBot2024TeleopChangesmapping extends OpMode
 {
@@ -30,10 +30,10 @@ public class StarterBot2024TeleopChangesmapping extends OpMode
     //private final double armManualDeadband = 0.03;
     private final double armManualDeadband = 0.15;
 
-    private final double gripperClosedPosition = 1.0;
-    private final double gripperOpenPosition = 0.7;// 0.5
+    private final double gripperClosedPosition = 1;
+    private final double gripperOpenPosition = 0.8;// 0.5
     private final double wristUpPosition = 1.5;//1.0 0.8
-    private final double wristDownPosition = 0.4;// 0.5 0.4
+    private final double wristDownPosition = 0.5;// 0.5 0.4
 
     private final int armHomePosition = 0;
     private final int armIntakePosition = 10;
@@ -44,9 +44,9 @@ public class StarterBot2024TeleopChangesmapping extends OpMode
     private final double launcherFinal=0.8;
     private boolean hangingStatus=false;
     // constant for slow speed
-    private final double driveMotorSlowSpeed = 0.55;
+    private final double driveMotorSlowSpeed = 0.50;
     //constant for fast speed
-    private final double driveMotorFastSpeed = 0.75;
+    private final double driveMotorFastSpeed = 0.85;
      /* Code to run ONCE when the driver hits INIT
      */
     @Override
@@ -160,8 +160,8 @@ public class StarterBot2024TeleopChangesmapping extends OpMode
         if (hangingStatus==true)
         {
             telemetry.addData(" it is in hanging mode",manualArmPower);
-            armLeft.setPower(0.5);
-            armRight.setPower(0.5);
+            armLeft.setPower(-0.5);
+            armRight.setPower(-0.5);
         }
 
         if (Math.abs(manualArmPower) > armManualDeadband ) {
