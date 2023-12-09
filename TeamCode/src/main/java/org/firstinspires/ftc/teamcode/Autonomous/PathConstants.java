@@ -7,9 +7,9 @@ public class PathConstants {
     static final double BSL_FowardPoint2=12.0;
     static final double BSL_BackwardPoint1=-3;
     static final double BSL_TurnLeft1=-12.0;
-    static final double BSL_BackwardPoint2=-37.0;
+    static final double BSL_BackwardPoint2=-35.0;
 
     // Front stage offset in inches
-    static final double FrontOffset = 30;
+    static final double FrontOffset = 47.25;
 
 }

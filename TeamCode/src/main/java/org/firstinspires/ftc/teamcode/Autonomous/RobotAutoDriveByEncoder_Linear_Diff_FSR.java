@@ -117,7 +117,7 @@ public class RobotAutoDriveByEncoder_Linear_Diff_FSR extends LinearOpMode {
     //https://docs.revrobotics.com/ultraplanetary/
 
     // Robot specifications
-    static final double     COUNTS_PER_MOTOR_REV    = 28 ;    // eg: HD Hes
+    static final double     COUNTS_PER_MOTOR_REV    = 28.0 ;   // eg: HD Hes
     static final double     DRIVE_GEAR_REDUCTION    = 16.5;//20.15293 ;     // 4:1 and 5:1
     static final double     WHEEL_DIAMETER_INCHES   = 3.5433362205 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
@@ -129,8 +129,8 @@ public class RobotAutoDriveByEncoder_Linear_Diff_FSR extends LinearOpMode {
 
     private final double gripperClosedPosition = 1.0;
     private final double gripperOpenPosition = 0.7;// 0.5
-    private final double wristUpPosition = 1.5;//1.0 0.8
-    private final double wristDownPosition = 0.4;// 0.5 0.4
+    private final double wristUpPosition = 1.0;//1.0 0.8
+    private final double wristDownPosition = 0.0;// 0.5 0.4
 
     private final int armHomePosition = 0;
     private final int armIntakePosition = 200;
@@ -153,8 +153,8 @@ public class RobotAutoDriveByEncoder_Linear_Diff_FSR extends LinearOpMode {
         // To drive forward, most robots need the motor on one side to be reversed, because the axles point in opposite directions.
         // When run, this OpMode should start both motors driving forward. So adjust these two lines based on your first test drive.
         // Note: The settings here assume direct drive on left and right wheels.  Gear Reduction or 90 Deg drives may require direction flips
-        leftDrive.setDirection(DcMotor.Direction.REVERSE);
-        rightDrive.setDirection(DcMotor.Direction.FORWARD);
+        leftDrive.setDirection(DcMotor.Direction.FORWARD);
+        rightDrive.setDirection(DcMotor.Direction.REVERSE);
 
         leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -259,7 +259,7 @@ public class RobotAutoDriveByEncoder_Linear_Diff_FSR extends LinearOpMode {
                 if (gripper.getPosition() != gripperClosedPosition) {
                     gripper.setPosition(gripperClosedPosition);// Open Gripper to drop of pixel
                 }
-                sleep(100);  // pause to display final telemetry message.
+                sleep(500);  // pause to display final telemetry message.
                 //S7: Move arm up to perpare for travel
                 wrist.setPosition(wristUpPosition);
                 sleep(100);  // pause to display final telemetry message.
@@ -268,7 +268,7 @@ public class RobotAutoDriveByEncoder_Linear_Diff_FSR extends LinearOpMode {
 
                 //sleep(100);  // pause to display final telemetry message.
                 //S9: Turn right to face against the backdrop board
-                encoderDrive(TURN_SPEED, PathConstants.BSL_TurnLeft1-1  , -PathConstants.BSL_TurnLeft1-1, 5.0);
+                encoderDrive(TURN_SPEED, (PathConstants.BSL_TurnLeft1-1) , -1*(PathConstants.BSL_TurnLeft1+1), 5.0);
 
                 //* Brackdrop board execution
                 //S10: Drive backward for BSL_BackwardPoint2 to approach the board
@@ -291,14 +291,14 @@ public class RobotAutoDriveByEncoder_Linear_Diff_FSR extends LinearOpMode {
                 //S14: Move are to IntakePosition
                 encoderArm(-armSpeed*2, armIntakePosition, 5.0);
                 //S15: Turn left 9in
-                encoderDrive(TURN_SPEED, -9, 9, 5.0);
+                encoderDrive(TURN_SPEED, 9, -9, 5.0);
                 //S16: Drive backward 19.5 in to the final parking postion
                 encoderDrive(DRIVE_SPEED*2, -19.5, -19.5, 5.0);
                 telemetry.addData("Path", "Complete");
                 telemetry.update();
                 sleep(100);  // pause to display final telemetry message.*/
             }
-            else if (location==Prop.LEFT)
+            else if (location==Prop.RIGHT)
             {
 
                 // * Approaching the team prop *
@@ -310,8 +310,7 @@ public class RobotAutoDriveByEncoder_Linear_Diff_FSR extends LinearOpMode {
                 //S3: Drive forward for BSL_FowardPoint2+3
                 encoderDrive(DRIVE_SPEED, PathConstants.BSL_FowardPoint2+3, PathConstants.BSL_FowardPoint2+3, 5.0);
                 //S4: Turn right to face against the board
-                encoderDrive(TURN_SPEED, -PathConstants.BSL_TurnLeft1-1  ,
-                        PathConstants.BSL_TurnLeft1+1, 5.0);
+                encoderDrive(TURN_SPEED, PathConstants.BSL_TurnLeft1+1  , -1*(PathConstants.BSL_TurnLeft1+1), 5.0);
                 //S5:Drive backward 21in
                 encoderDrive(DRIVE_SPEED, -21, -21, 5.0);  // S1: Forward -3 Inches with 5 Sec timeout
 
@@ -332,7 +331,7 @@ public class RobotAutoDriveByEncoder_Linear_Diff_FSR extends LinearOpMode {
                 if (gripper.getPosition() != gripperClosedPosition) {
                     gripper.setPosition(gripperClosedPosition);// Open Gripper to drop of pixel
                 }
-                sleep(100);  // pause to display final telemetry message.
+                sleep(500);  // pause to display final telemetry message.
                 //S9: Move arm up to perpare for travel
                 wrist.setPosition(wristUpPosition);
                 sleep(100);  // pause to display final telemetry message.
@@ -356,7 +355,7 @@ public class RobotAutoDriveByEncoder_Linear_Diff_FSR extends LinearOpMode {
                 //S14:14:Move arm to the intake position of armIntakePosition
                 encoderArm(-armSpeed*2, armIntakePosition, 5.0);
                 //S15:Robot turns left 7 inches
-                encoderDrive(TURN_SPEED, -7, 7, 5.0);
+                encoderDrive(TURN_SPEED, 7, -7, 5.0);
                 //S16:googRobot drives backward 22 inches to final park position
                 encoderDrive(DRIVE_SPEED*2, -22, -22, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
                 telemetry.addData("Path", "Complete");
@@ -375,7 +374,7 @@ public class RobotAutoDriveByEncoder_Linear_Diff_FSR extends LinearOpMode {
                 sleep(100);  // pause to display final telemetry message.
                 encoderDrive(DRIVE_SPEED, PathConstants.BSL_FowardPoint2+2, PathConstants.BSL_FowardPoint2+2, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
 
-                encoderDrive(TURN_SPEED, -PathConstants.BSL_TurnLeft1  , PathConstants.BSL_TurnLeft1, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
+                encoderDrive(TURN_SPEED, PathConstants.BSL_TurnLeft1  , -PathConstants.BSL_TurnLeft1, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
                 encoderDrive(DRIVE_SPEED, 3.5, 3.5, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
 
 
@@ -393,10 +392,10 @@ public class RobotAutoDriveByEncoder_Linear_Diff_FSR extends LinearOpMode {
                 if (gripper.getPosition() != gripperClosedPosition) {
                     gripper.setPosition(gripperClosedPosition);// Open Gripper to drop of pixel
                 }
-                sleep(100);  // pause to display final telemetry message.
+                sleep(500);  // pause to display final telemetry message.
                 wrist.setPosition(wristUpPosition);
                 sleep(100);  // pause to display final telemetry message.
-                encoderDrive(TURN_SPEED, 2 , -2, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
+                encoderDrive(TURN_SPEED, -2 , 2, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
 
                 encoderDrive(DRIVE_SPEED, PathConstants.BSL_BackwardPoint2-PathConstants.FrontOffset,
                         PathConstants.BSL_BackwardPoint2-PathConstants.FrontOffset, 5.0);  // S1: Forward -38 Inches with 5 Sec timeout
@@ -411,7 +410,7 @@ public class RobotAutoDriveByEncoder_Linear_Diff_FSR extends LinearOpMode {
                 //encoderArm(armSpeed, armIntakePosition,8.0);
                 encoderArm(-armSpeed*2, armIntakePosition, 5.0);
 
-                encoderDrive(TURN_SPEED, -9, 9, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+                encoderDrive(TURN_SPEED, 9, -9, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
                 encoderDrive(DRIVE_SPEED*2, -31.5, -31.5, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
                 telemetry.addData("Path", "Complete");
                 telemetry.update();
@@ -441,8 +440,8 @@ public class RobotAutoDriveByEncoder_Linear_Diff_FSR extends LinearOpMode {
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newLeftTarget = leftDrive.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
-            newRightTarget = rightDrive.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
+            newLeftTarget = leftDrive.getCurrentPosition() +(int)(leftInches * COUNTS_PER_INCH);
+            newRightTarget = rightDrive.getCurrentPosition() +(int)(rightInches * COUNTS_PER_INCH);
             leftDrive.setTargetPosition(newLeftTarget);
             rightDrive.setTargetPosition(newRightTarget);
 
@@ -487,21 +486,21 @@ public class RobotAutoDriveByEncoder_Linear_Diff_FSR extends LinearOpMode {
     public void encoderArm( double speed,int EncoderTarget,
                             double timeoutS) {
         runtime.reset();
-        armLeft.setTargetPosition(EncoderTarget);
-        armRight.setTargetPosition(-EncoderTarget);
+        armLeft.setTargetPosition(-EncoderTarget);
+        armRight.setTargetPosition(EncoderTarget);
         armLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         armRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        armLeft.setPower(-speed);
-        armRight.setPower(speed);
+        armLeft.setPower(speed);
+        armRight.setPower(-speed);
 
 
         while ((armLeft.isBusy() || armRight.isBusy()) &&(runtime.seconds() < timeoutS)) {
-            armLeft.setTargetPosition(EncoderTarget);
-            armRight.setTargetPosition(-EncoderTarget);
+            armLeft.setTargetPosition(-EncoderTarget);
+            armRight.setTargetPosition(EncoderTarget);
             armLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             armRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            armLeft.setPower(-speed);
-            armRight.setPower(speed);
+            armLeft.setPower(speed);
+            armRight.setPower(-speed);
             // Display it for the driver.
             telemetry.addData("arm Running to", "left %7d and right %7d ",
                     EncoderTarget,-EncoderTarget);
