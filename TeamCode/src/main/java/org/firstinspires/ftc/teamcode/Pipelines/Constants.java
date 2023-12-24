@@ -5,26 +5,32 @@ import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 
 public class Constants {
+    // set boundaries for red side - left region of interest (ROI)
     public static final Rect LEFT_ROI_RED = new Rect(
             new Point(40, 45),//25,50
             new Point(115, 115)// 130,120
     );
+    // set boundaries for red side - center ROI
     public static final Rect CENTER_ROI_RED = new Rect(
             new Point(150, 30),//25,60
             new Point(310, 80)//85 130, 270
     );
+    // set boundaries for red side - right ROI
     public static final Rect RIGHT_ROI_RED = new Rect(
             new Point(170, 70),
             new Point(235, 145)
     );
+    // set boundaries for blue side - left ROI
     public static final Rect LEFT_ROI_BLUE = new Rect(
-            new Point(25, 45),//15,45,10,45//40,74
-            new Point(110, 120)//110,125//145
+            new Point(50, 30),//24,45,15,45,10,45//40,74
+            new Point(120, 90)//110,125//145
     );
+    // set boundaries for blue side - center ROI
     public static final Rect CENTER_ROI_BLUE = new Rect(
             new Point(150, 35),//235,145
             new Point(300, 75)//270,125
     );
+    // set boundaries for blue side - right ROI
     public static final Rect RIGHT_ROI_BLUE = new Rect(
             new Point(25, 70),
             new Point(100, 150)
