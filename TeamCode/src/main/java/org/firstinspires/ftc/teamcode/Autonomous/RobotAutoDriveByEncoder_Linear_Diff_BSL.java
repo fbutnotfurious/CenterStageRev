@@ -383,7 +383,7 @@ public class RobotAutoDriveByEncoder_Linear_Diff_BSL extends LinearOpMode {
                 }
                 sleep(100);  // pause to display final telemetry message.
 
-                // Reverse by 3
+                // Reverse by  FORWARD POINT 3
                 encoderDrive(DRIVE_SPEED/3, PathConstants.BSL_BackwardPoint3,PathConstants.BSL_BackwardPoint3, 5.0);  // S1: Forward -3 Inches with 5 Sec timeout
                 sleep(300);  // pause to display final telemetry message.
                 wrist.setPosition(wristDownPosition-PathConstants.WristDownOffset);

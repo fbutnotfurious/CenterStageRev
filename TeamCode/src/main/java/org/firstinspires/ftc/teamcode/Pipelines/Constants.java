@@ -12,7 +12,7 @@ public class Constants {
     );
     // set boundaries for red side - center ROI
     public static final Rect CENTER_ROI_RED = new Rect(
-            new Point(150, 30),//25,60
+            new Point(130, 30),//25,60
             new Point(310, 80)//85 130, 270
     );
     // set boundaries for red side - right ROI

@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 public class PathConstants {
 
     // Common
-    static final double WristDownOffset=0.4;
+    static final double WristDownOffset=0.6;//0.4
 
     // Common back stage left (blue) BSL Center
     static final double BSL_FowardPoint1=17.0;
@@ -79,5 +79,37 @@ public class PathConstants {
     //BSL_Left_ParkPoint1
     //BSL_Left_ParkTurnLeft2
     //BSL_Left_ParkPoint3
+    //================================================================
+
+    // back stage Right (Red) BSR Center
+    // turn left to be ready to drop off
+    static final double BSR_TurnRight5=11.3;//12.5
+    static final double BSR_TurnRight5_offset=0.0;
+    static final double BSR_BackwardPoint6=-32.0;
+    static final double BSR_BackwardPoint6_Center_offset=7;
+
+    // BSR Center Park
+    static final double BSL_ParkTurnRight2= -6.0;
+
+    //================================================================
+    // back stage Red BSR Left
+    //-PathConstants.BSR_TurnRight5-PathConstants.BSR_TurnRight5_left_Offset
+    static final double BSR_TurnRight5_left_Offset=0.0;//0.2 0.5
+    static final double BSR_Left_BackwardPoint6=-22.2;
+    static final double BSR_Left_FowardPoint3=1;
+
+    // BSR Left Park
+    static final double BSR_Left_ParkTurnRight2= -8;//-9
+
+    //================================================================
+    // back stage Red BSR Right
+    static final double BSR_ForwardPoint2_Right_Offset=1.5;
+    static final double BSR_TurnRight5_right_Offset=1.33;// 2
+    static final double BSR_Left_BackwardPoint6_right_offset=-1;
+    static final double  BSL_Left_BackwardPoint7_right_offset=-2.0;
+
+
 
 }
+
+

@@ -15,6 +15,7 @@ import org.firstinspires.ftc.teamcode.Pipelines.WebcamPipeline;
 public class StarterBot2024TeleopChangesmapping extends OpMode
 {
     // Declare OpMode members.
+    // Password: PixelPicker23!
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor leftDrive = null;
     private DcMotor rightDrive = null;
@@ -46,6 +47,8 @@ public class StarterBot2024TeleopChangesmapping extends OpMode
     // constant for slow speed
     private final double driveMotorSlowSpeed = 0.55;
     //constant for fast speed
+
+    // constant for crawl speed
     private final double driveMotorFastSpeed = 0.75;
      /* Code to run ONCE when the driver hits INIT
      */
