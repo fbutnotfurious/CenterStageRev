@@ -16,9 +16,9 @@ public class PathConstants {
     // wrist up
     static final double BSL_BackwardPoint4=-1;
     // turn left to be ready to drop off
-    static final double BSL_TurnLeft5=-13.0;
+    static final double BSL_TurnLeft5=-12.2;
     // final drop off point
-    static final double BSL_BackwardPoint6=-30.0;
+    static final double BSL_BackwardPoint6=-32.0;
     static final double BSL_BackwardPoint6_Offset=4;
     // Arm Score
     // Open Gripper
@@ -36,8 +36,8 @@ public class PathConstants {
     static final double BSL_ForwardPoint2_Left_Offset =1.0;
 
     // turn left with below left offset
-    static final double BSL_TurnLeft5_Left_Offset =0.8;
-    static final double BSL_Left_BackwardPoint6=-21;
+    static final double BSL_TurnLeft5_Left_Offset =1.2;// 0.6
+    static final double BSL_Left_BackwardPoint6=-22;
     // Open Gripper
     //     static final double BSL_BackwardPoint3=-3;
     // Wrist Down with WristDownOffset offset
@@ -45,14 +45,14 @@ public class PathConstants {
     // Wrist up
     //     static final double BSL_BackwardPoint4=-1;
     // Final Drop off Point
-    static final double BSL_Left_BackwardPoint7=-9.5;
+    static final double BSL_Left_BackwardPoint7=-10.5;//-11.5
     // Arm Score
     // Open Pixel
     // Arm Intake
 
     // BSL Left Park
     static final double BSL_Left_ParkPoint1= 11.0;
-    static final double BSL_Left_ParkTurnLeft2= -9.0;
+    static final double BSL_Left_ParkTurnLeft2= -6.0;//-9.0
     static final double BSL_Left_ParkPoint3= -20.5;
     //================================================================
 
@@ -62,7 +62,7 @@ public class PathConstants {
     static final double BSL_ForwardPoint2_Right_Offset =1.0;
 
     // Turn left with below turn offset
-    static final double BSL_TurnLeft5_Right_Offset =1.3;
+    static final double BSL_TurnLeft5_Right_Offset =0.8;
 
     static final double BSL_Right_FowardPoint3=3.0;
     // Open Gripper
