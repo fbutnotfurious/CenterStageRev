@@ -256,6 +256,7 @@ public class RobotAutoDriveByEncoder_Linear_Diff_FSL extends LinearOpMode {
                 // Lift wrist
                 wrist.setPosition(wristUpPosition);
                 sleep(100);  // pause to display final telemetry message.
+                /*
                 // Reverse to point 4
                 encoderDrive(DRIVE_SPEED, PathConstants.BSL_BackwardPoint4, PathConstants.BSL_BackwardPoint4, 5.0);
 
@@ -332,7 +333,7 @@ public class RobotAutoDriveByEncoder_Linear_Diff_FSL extends LinearOpMode {
                 // Lift wrist
                 wrist.setPosition(wristUpPosition-0.2);
                 sleep(300);  // pause to display final telemetry message.
-
+                /*
                 // Reverse to point 4
                 encoderDrive(DRIVE_SPEED, PathConstants.BSL_BackwardPoint4, PathConstants.BSL_BackwardPoint4, 5.0);
 
@@ -404,6 +405,7 @@ public class RobotAutoDriveByEncoder_Linear_Diff_FSL extends LinearOpMode {
                 // Lift wrist
                 wrist.setPosition(wristUpPosition);
                 sleep(300);  // pause to display final telemetry message.
+                /*
                 // Reverse by 1
                 encoderDrive(DRIVE_SPEED, PathConstants.BSL_BackwardPoint4, PathConstants.BSL_BackwardPoint4, 5.0);  // S1: Forward -3 Inches with 5 Sec timeout
 
