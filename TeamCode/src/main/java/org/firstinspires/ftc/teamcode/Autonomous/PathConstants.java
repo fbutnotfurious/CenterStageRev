@@ -107,9 +107,30 @@ public class PathConstants {
     static final double BSR_TurnRight5_right_Offset=1.33;// 2
     static final double BSR_Left_BackwardPoint6_right_offset=-1;
     static final double  BSL_Left_BackwardPoint7_right_offset=-2.0;
+    //================================================================
+
+    //================================================================
+    // front stage Red FSR Right
+    //Center
+    static final double FSR_TurnRight5=11.6;
+    static final double FSR_BackwardPoint6=-84.5;
+    static final double FSR_BackwardPoint6_Center_offset=7;
+    // Left
+    static final double FSR_TurnRight5_left_Offset=0.5;
+    static final double FSR_Left_BackwardPoint4=-58.4;//-53
+    static final double FSR_Left_TurnLeft=-1.8;
+    static final double FSR_Left_BackwardPoint6_left_offset=4;
+
+
+    //Right
+    static final double FSR_Right_BackwardPoint4=-36;//-53
 
 
 
-}
+    }
+
+
+
+
 
 
