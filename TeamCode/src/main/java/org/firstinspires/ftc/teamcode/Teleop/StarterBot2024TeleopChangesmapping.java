@@ -168,7 +168,7 @@ public class StarterBot2024TeleopChangesmapping extends OpMode
         rightDrive.setPower(rightPower);
 
         //ARM & WRIST
-        manualArmPower = Math.pow(gamepad1.left_trigger,1) - Math.pow(gamepad1.right_trigger,1);
+        manualArmPower = Math.pow(gamepad1.right_trigger,1) - Math.pow(gamepad1.left_trigger,1);
 
         if (gamepad2.y && gamepad1.right_bumper) {
             hangingStatus = true;
