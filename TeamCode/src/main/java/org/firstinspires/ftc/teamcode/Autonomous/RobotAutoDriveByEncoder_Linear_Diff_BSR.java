@@ -279,7 +279,7 @@ public class RobotAutoDriveByEncoder_Linear_Diff_BSR extends LinearOpMode {
                 // drop arm to intake position
                 encoderArm(-armSpeed*3, armIntakePosition, 2.0);
                 // turn left to ParkPoint2
-                encoderDrive(TURN_SPEED, PathConstants.BSL_ParkTurnRight2, -PathConstants.BSL_ParkTurnRight2, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+                encoderDrive(TURN_SPEED, -PathConstants.BSL_ParkTurnRight2, +PathConstants.BSL_ParkTurnRight2, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
                 // reverse to ParkPoint 3
                 encoderDrive(DRIVE_SPEED*2, PathConstants.BSL_ParkPoint3, PathConstants.BSL_ParkPoint3, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
                 telemetry.addData("Path", "Complete");
@@ -351,7 +351,7 @@ public class RobotAutoDriveByEncoder_Linear_Diff_BSR extends LinearOpMode {
                 encoderDrive(DRIVE_SPEED, PathConstants.BSL_Left_ParkPoint1, PathConstants.BSL_Left_ParkPoint1, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
                 // drop arm to intake position
                 // turn left by turn left 2
-                encoderDrive(TURN_SPEED, PathConstants.BSL_Left_ParkTurnLeft2, -PathConstants.BSL_Left_ParkTurnLeft2, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+                encoderDrive(TURN_SPEED, -PathConstants.BSL_Left_ParkTurnLeft2, +PathConstants.BSL_Left_ParkTurnLeft2, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
                 // reverse to park point 2
                 encoderDrive(DRIVE_SPEED*2, PathConstants.BSL_Left_ParkPoint3, PathConstants.BSL_Left_ParkPoint3, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
 
@@ -425,7 +425,7 @@ public class RobotAutoDriveByEncoder_Linear_Diff_BSR extends LinearOpMode {
                 encoderDrive(DRIVE_SPEED, PathConstants.BSL_Left_ParkPoint1, PathConstants.BSL_Left_ParkPoint1, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
                 // drop arm to intake position
                 // turn left by turn left 2
-                encoderDrive(TURN_SPEED, PathConstants.BSR_Left_ParkTurnRight2, -PathConstants.BSR_Left_ParkTurnRight2, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+                encoderDrive(TURN_SPEED, -PathConstants.BSR_Left_ParkTurnRight2, +PathConstants.BSR_Left_ParkTurnRight2, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
                 // reverse to park point 2
                 encoderDrive(DRIVE_SPEED*2, PathConstants.BSL_Left_ParkPoint3, PathConstants.BSL_Left_ParkPoint3, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
                 telemetry.addData("Path", "Complete");

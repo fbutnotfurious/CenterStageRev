@@ -63,10 +63,12 @@ public class StarterBot2024TeleopChangesmapping extends OpMode
     private final double launcherInitial=0.0;
     private final double launcherFinal=0.8;
     private boolean hangingStatus=false;
+    // constant for snail speed
+    private final double driveMotorSnailSpeed = 0.35;
     // constant for slow speed
     private final double driveMotorSlowSpeed = 0.50;
     //constant for fast speed
-    private final double driveMotorFastSpeed = 0.85;
+    private final double driveMotorFastSpeed = 1.00;
      /* Code to run ONCE when the driver hits INIT
      */
     @Override
@@ -161,6 +163,12 @@ public class StarterBot2024TeleopChangesmapping extends OpMode
         {
             leftPower    = Range.clip(drive + turn, -driveMotorFastSpeed, driveMotorFastSpeed) ;//0.55
             rightPower   = Range.clip(drive - turn, -driveMotorFastSpeed, driveMotorFastSpeed) ;//0.55
+
+        }
+        if (gamepad2.right_trigger>0)
+        {
+            leftPower    = Range.clip(drive + turn, -driveMotorSnailSpeed, driveMotorSnailSpeed) ;//0.55
+            rightPower   = Range.clip(drive - turn, -driveMotorSnailSpeed, driveMotorSnailSpeed) ;//0.55
 
         }
 

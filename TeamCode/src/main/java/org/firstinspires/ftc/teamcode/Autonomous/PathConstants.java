@@ -6,7 +6,7 @@ public class PathConstants {
     static final double WristDownOffset=0.6;//0.4
 
     // Common back stage left (blue) BSL Center
-    static final double BSL_FowardPoint1=17.0;
+    static final double BSL_FowardPoint1=16.5;
     // wrist down
     static final double BSL_FowardPoint2=12.0;
     // Open Gripper to drop 1st pixel
@@ -83,23 +83,23 @@ public class PathConstants {
 
     // back stage Right (Red) BSR Center
     // turn left to be ready to drop off
-    static final double BSR_TurnRight5=11.3;//12.5
+    static final double BSR_TurnRight5=11.4;//12.5
     static final double BSR_TurnRight5_offset=0.0;
     static final double BSR_BackwardPoint6=-32.0;
     static final double BSR_BackwardPoint6_Center_offset=7;
 
     // BSR Center Park
-    static final double BSL_ParkTurnRight2= -6.0;
+    static final double BSL_ParkTurnRight2= -6.8;
 
     //================================================================
     // back stage Red BSR Left
     //-PathConstants.BSR_TurnRight5-PathConstants.BSR_TurnRight5_left_Offset
-    static final double BSR_TurnRight5_left_Offset=0.0;//0.2 0.5
+    static final double BSR_TurnRight5_left_Offset=1.8;//0.2 0.5
     static final double BSR_Left_BackwardPoint6=-22.2;
     static final double BSR_Left_FowardPoint3=1;
 
     // BSR Left Park
-    static final double BSR_Left_ParkTurnRight2= -8;//-9
+    static final double BSR_Left_ParkTurnRight2= -9;//-9
 
     //================================================================
     // back stage Red BSR Right
