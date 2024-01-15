@@ -5,127 +5,192 @@ public class PathConstants {
     // Common
     static final double WristDownOffset=0.6;//0.4
 
-    // Common back stage left (blue) BSL Center
-    static final double BSL_FowardPoint1=16.5;
+    // Common Blue Back Stage
+    // Center Spike Mark
+    static final double BlueBackStage_CenterSpike_ForwardPoint1=16.5;
     // wrist down
-    static final double BSL_FowardPoint2=12.0;
+    static final double BlueBackStage_CenterSpike_ForwardPoint2=12.0;
     // Open Gripper to drop 1st pixel
-    static final double BSL_BackwardPoint3=-3;
+    static final double BlueBackStage_CenterSpike_BackwardPoint3=-3;
     // wrist down with offset WristDownOffset
     //close gripper
     // wrist up
-    static final double BSL_BackwardPoint4=-1;
+    static final double BlueBackStage_CenterSpike_BackwardPoint4=-1;
     // turn left to be ready to drop off
-    static final double BSL_TurnLeft5=-12.2;
+    static final double BlueBackStage_CenterSpike_TurnRight5=-12.2;
     // final drop off point
-    static final double BSL_BackwardPoint6=-32.0;
-    static final double BSL_BackwardPoint6_Offset=4;
+    static final double BlueBackStage_CenterSpike_BackwardPoint6=-36.0;
+
     // Arm Score
     // Open Gripper
     // Arm Intake
-    // BSL Center Park
-    static final double BSL_ParkPoint1= 12.0;
-    static final double BSL_ParkTurnLeft2= -7.0;
-    static final double BSL_ParkPoint3= -21.5;
+    // BlueBackStage_CenterSpike Center Park
+    static final double BlueBackStage_CenterSpike_ParkForwardPoint1= 12.0;
+    static final double BlueBackStage_CenterSpike_ParkTurnLeft2= -7.0;
+    static final double BlueBackStage_CenterSpike_ParkBackwardPoint3= -21.5;
     //================================================================
 
-    // back stage left (blue) BSL Left
-    //     static final double BSL_FowardPoint1=17.0;
-    // wrist Down
-    // ForwardPoint 2 + below left offset
-    static final double BSL_ForwardPoint2_Left_Offset =1.0;
+    // Common Blue Back Stage
+    // Left Spike Mark
 
-    // turn left with below left offset
-    static final double BSL_TurnLeft5_Left_Offset =1.2;// 0.6
-    static final double BSL_Left_BackwardPoint6=-22;
+    static final double BlueBackStage_LeftSpike_ForwardPoint1=16.5;
+    static final double BlueBackStage_LeftSpike_ForwardPoint2=13.0;
+    static final double BlueBackStage_LeftSpike_TurnRight3=-11;
+    static final double BlueBackStage_LeftSpike_BackwardPoint4=-22;
+
     // Open Gripper
     //     static final double BSL_BackwardPoint3=-3;
+    static final double BlueBackStage_LeftSpike_BackwardPoint5=-3;
+
     // Wrist Down with WristDownOffset offset
     // Close Gripper
     // Wrist up
-    //     static final double BSL_BackwardPoint4=-1;
+    static final double BlueBackStage_LeftSpike_BackwardPoint6=-1;
     // Final Drop off Point
-    static final double BSL_Left_BackwardPoint7=-10.5;//-11.5
+    static final double BlueBackStage_LeftSpike_BackwardPoint7=-10.5;//-11.5
     // Arm Score
     // Open Pixel
     // Arm Intake
 
-    // BSL Left Park
-    static final double BSL_Left_ParkPoint1= 11.0;
-    static final double BSL_Left_ParkTurnLeft2= -6.0;//-9.0
-    static final double BSL_Left_ParkPoint3= -20.5;
+    //  Left Park
+    static final double BlueBackStage_LeftSpike_ParkForwardPoint1= 11.0;
+    static final double BlueBackStage_LeftSpike_ParkTurnLeft2= -6.0;
+    static final double BlueBackStage_LeftSpike_ParkBackwardPoint3= -20.5;
     //================================================================
+    //  Blue Back Stage
+    // Right Spike Mark
+    static final double BlueBackStage_RightSpike_ForwardPoint1=16.5;
+    //FowardPoint1
+    //FowardPoint2
+    static final double BlueBackStage_RightSpike_ForwardPoint2=13.0;
+    // Turn right
+    static final double BlueBackStage_RightSpike_TurnRight3=13.0;
 
-    // back stage left (blue) BSL Right
-    //BSL_FowardPoint1
-    //BSL_FowardPoint2 with below right offset
-    static final double BSL_ForwardPoint2_Right_Offset =1.0;
-
-    // Turn left with below turn offset
-    static final double BSL_TurnLeft5_Right_Offset =0.8;
-
-    static final double BSL_Right_FowardPoint3=3.0;
+    static final double BlueBackStage_RightSpike_ForwardPoint4=3.0;
     // Open Gripper
-    //BSL_BackwardPoint3
+    //reverse by BlueBackStage_RightSpike_ForwardPoint4
     // Wrist Down with WristDownOffset offset
     // Close Gripper
     // Wrist up
-    //BSL_BackwardPoint4
-    static final double BSL_Right_BackwardPoint6=-35.5;
+    static final double BlueBackStage_RightSpike_BackwardPoint5=-1.0;
+    static final double BlueBackStage_RightSpike_BackwardPoint6=-35.5;
     // Arm Score
     // Gripper Open
     //Arm Intake
     // BSL Right Park
-    //BSL_Left_ParkPoint1
-    //BSL_Left_ParkTurnLeft2
-    //BSL_Left_ParkPoint3
+    static final double BlueBackStage_RightSpike_ParkForwardPoint1= 11.0;
+    static final double BlueBackStage_RightSpike_ParkTurnLeft2= -6.0;
+    static final double BlueBackStage_RightSpike_ParkBackwardPoint3= -20.5;
     //================================================================
+    // Common Blue Front Stage
+    // Center Spike Mark
+    static final double BlueFrontStage_CenterSpike_ForwardPoint1=16.5;
+    static final double BlueFrontStage_CenterSpike_ForwardPoint2=12.0;
+    static final double BlueFrontStage_CenterSpike_BackwardPoint3=-3;
+    // Common Blue Front Stage
+    // Left Spike Mark
+    static final double BlueFrontStage_LeftSpike_ForwardPoint1=16.5;
+    static final double BlueFrontStage_LeftSpike_ForwardPoint2=13.0;//12.0
+    static final double BlueFrontStage_LeftSpike_TurnLeft3=-11;
+    static final double BlueFrontStage_LeftSpike_Forward4=-22;// placeholder
+    static final double BlueFrontStage_LeftSpike_BackwardPoint5=-3.0;
+    // Common Blue Front Stage
+    // Right Spike Mark
+    static final double BlueFrontStage_RightSpike_ForwardPoint1=16.5;
+    static final double BlueFrontStage_RightSpike_ForwardPoint2=13.0;
+    static final double BlueFrontStage_RightSpike_TurnRight3=13;
+    static final double BlueFrontStage_RightSpike_ForwardPoint4=3.0;
 
-    // back stage Right (Red) BSR Center
+//===================================================================================
+    //  Red Back Stage
+    // Center Spike Mark
+    static final double RedBackStage_CenterSpike_ForwardPoint1=16.5;
+    static final double RedBackStage_CenterSpike_ForwardPoint2=12;
+
+    static final double RedBackStage_CenterSpike_BackwardPoint3=-3;
+    // wrist down with offset WristDownOffset
+    //close gripper
+    // wrist up
+    static final double RedBackStage_CenterSpike_BackwardPoint4=-1;
     // turn left to be ready to drop off
-    static final double BSR_TurnRight5=11.4;//12.5
-    static final double BSR_TurnRight5_offset=0.0;
-    static final double BSR_BackwardPoint6=-32.0;
-    static final double BSR_BackwardPoint6_Center_offset=7;
+    static final double RedBackStage_CenterSpike_TurnRight5=11.4;
+    // final drop off point
+    static final double RedBackStage_CenterSpike_BackwardPoint6=-39.0;
 
-    // BSR Center Park
-    static final double BSL_ParkTurnRight2= -6.8;
+    // Arm Score
+    // Open Gripper
+    // Arm Intake
+    // BlueBackStage_CenterSpike Center Park
+    static final double RedBackStage_CenterSpike_ParkForwardPoint1= 12.0;
+    static final double RedBackStage_CenterSpike_ParkTurnLeft2= -7.0;
+    static final double RedBackStage_CenterSpike_ParkBackwardPoint3= -21.5;
+    //  Red Back Stage
+    // Left Spike Mark
+
+    static final double RedBackStage_LeftSpike_ForwardPoint1=16.5;
+    static final double RedBackStage_LeftSpike_ForwardPoint2=13.0;
+    static final double RedBackStage_LeftSpike_TurnRight3=-13.2;
+    static final double RedBackStage_LeftSpike_ForwardPoint4=1;
+    static final double RedBackStage_LeftSpike_ForwardPoint5=-3;
+    static final double RedBackStage_LeftSpike_BackwardPoint6=-1;
+
+    // Open Gripper
+    // Wrist Down with WristDownOffset offset
+    // Close Gripper
+    // Wrist up
+    // Final Drop off Point
+    static final double RedBackStage_LeftSpike_BackwardPoint7=-35.5;
+    // Arm Score
+    // Open Pixel
+    // Arm Intake
+
+    //  Left Park
+    static final double RedBackStage_LeftSpike_ParkForwardPoint1= 11.0;
+    static final double RedBackStage_LeftSpike_ParkTurnLeft2= -6.0;
+    static final double RedBackStage_LeftSpike_ParkBackwardPoint3= -20.5;
+    //================================================================
+    //  Red Back Stage
+    // Right Spike Mark
+
+    static final double RedBackStage_RightSpike_ForwardPoint1=16.5;
+    //FowardPoint1
+    //FowardPoint2
+    static final double RedBackStage_RightSpike_ForwardPoint2=13.5;
+    // Turn right
+    static final double RedBackStage_RightSpike_TurnRight3=10.7;
+    static final double RedBackStage_RightSpike_BackwardPoint4=-23.2;
+    static final double RedBackStage_RightSpike_BackwardPoint5=-3.0;
+    // Open Gripper
+    //reverse by RedBackStage_RightSpike_ForwardPoint4
+    // Wrist Down with WristDownOffset offset
+    // Close Gripper
+    // Wrist up
+    static final double RedBackStage_RightSpike_BackwardPoint6=-1.0;
+    static final double RedBackStage_RightSpike_BackwardPoint7=-12.5;
+
+    // Park
+    static final double RedBackStage_RightSpike_ParkForwardPoint1= 11.0;
+    static final double RedBackStage_RightSpike_ParkTurnLeft2= -6.0;
+    static final double RedBackStage_RightSpike_ParkBackwardPoint3= -20.5;
 
     //================================================================
-    // back stage Red BSR Left
-    //-PathConstants.BSR_TurnRight5-PathConstants.BSR_TurnRight5_left_Offset
-    static final double BSR_TurnRight5_left_Offset=1.8;//0.2 0.5
-    static final double BSR_Left_BackwardPoint6=-22.2;
-    static final double BSR_Left_FowardPoint3=1;
-
-    // BSR Left Park
-    static final double BSR_Left_ParkTurnRight2= -9;//-9
-
-    //================================================================
-    // back stage Red BSR Right
-    static final double BSR_ForwardPoint2_Right_Offset=1.5;
-    static final double BSR_TurnRight5_right_Offset=1.33;// 2
-    static final double BSR_Left_BackwardPoint6_right_offset=-1;
-    static final double  BSL_Left_BackwardPoint7_right_offset=-2.0;
-    //================================================================
-
-    //================================================================
-    // front stage Red FSR Right
+    // front stage Red
     //Center
-    static final double FSR_TurnRight5=11.6;
-    static final double FSR_BackwardPoint6=-84.5;
-    static final double FSR_BackwardPoint6_Center_offset=7;
+    static final double RedFrontStage_CenterSpike_ForwardPoint1=16.5;
+    static final double RedFrontStage_CenterSpike_ForwardPoint2=13.0;
+    static final double RedFrontStage_CenterSpike_BackwardPoint3=-3.0;
     // Left
-    static final double FSR_TurnRight5_left_Offset=0.5;
-    static final double FSR_Left_BackwardPoint4=-58.4;//-53
-    static final double FSR_Left_TurnLeft=-1.8;
-    static final double FSR_Left_BackwardPoint6_left_offset=4;
-
-
-    //Right
-    static final double FSR_Right_BackwardPoint4=-36;//-53
-
-
+    static final double RedFrontStage_LeftSpike_ForwardPoint1=16.5;
+    static final double RedFrontStage_LeftSpike_ForwardPoint2=13.0;
+    static final double RedFrontStage_LeftSpike_TurnRight3=11;
+    static final double RedFrontStage_LeftSpike_Forward4=-22;// placeholder
+    static final double RedFrontStage_LeftSpike_BackwardPoint5=-3.0;
+    // Common Blue Front Stage
+    // Right Spike Mark
+    static final double RedFrontStage_RightSpike_ForwardPoint1=16.5;
+    static final double RedFrontStage_RightSpike_ForwardPoint2=13.0;
+    static final double RedFrontStage_RightSpike_TurnRight3=13;
+    static final double RedFrontStage_RightSpike_ForwardPoint4=3.0;
 
     }
 

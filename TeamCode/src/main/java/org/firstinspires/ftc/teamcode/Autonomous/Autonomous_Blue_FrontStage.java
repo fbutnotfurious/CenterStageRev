@@ -54,13 +54,24 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
  *
  *  This code ALSO requires that the drive Motors have been configured such that a positive
  *  power command moves them forward, and causes the encoders to count UP.
- *
- *   The desired path in this example is:
- *   - Drive forward for 48 inches
- *   - Spin right for 12 Inches
- *   - Drive Backward for 24 inches
- *   - Stop and close the claw.
- *
+
+The program attempts to recognize a Team Prop on a spike mark, place the purple pixel on that mark
+        and drop yellow pixel in the corresponding area on the backdrop.
+
+
+    Starting position - blue alliance, front stage
+
+    Program flow:
+    - Use Pixel counting to detect which spike mark has the Team Prop
+    - drive forward toward indicated spike mark,
+    - Drop purple pixel (on spike mark) and yellow pixel on the ground
+    - Drive backward and pick up yellow pixel
+    - Drive backwards towards back drop
+    - Drop yellow pixel in corresponding area
+    - Park in zone right or left
+ Note: Do not pick path that displaces alliance back stage pixels as this
+ will unscore your team mate
+
  *  The code is written using a method called: encoderDrive(speed, leftInches, rightInches, timeoutS)
  *  that performs the actual movement.
  *  This method assumes that each movement is relative to the last stopping place.
@@ -71,9 +82,9 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Backstage Blue Robot: Auto Drive By Encoder Diff", group="Robot")
+@Autonomous(name="FrontStage Blue Robot: Auto Drive By Encoder Diff", group="Robot")
 //@Disabled
-public class RobotAutoDriveByEncoder_Linear_Diff_BSL extends LinearOpMode {
+public class Autonomous_Blue_FrontStage extends LinearOpMode {
 
     OpenCvCamera webcam;
     /* Declare OpMode members. */
@@ -118,7 +129,7 @@ public class RobotAutoDriveByEncoder_Linear_Diff_BSL extends LinearOpMode {
     static final double     DRIVE_GEAR_REDUCTION    = 16.5;//20.15293 ;     // 4:1 and 5:1
     static final double     WHEEL_DIAMETER_INCHES   = 3.5433362205 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
-                                                      (WHEEL_DIAMETER_INCHES * 3.1415);
+            (WHEEL_DIAMETER_INCHES * 3.1415);
     static final double     DRIVE_SPEED             = 0.3;//0.6
     static final double     TURN_SPEED              = 0.5;
 
@@ -229,11 +240,11 @@ public class RobotAutoDriveByEncoder_Linear_Diff_BSL extends LinearOpMode {
                 ;
 
                 // Drive forward to point 1
-                encoderDrive(DRIVE_SPEED, PathConstants.BSL_FowardPoint1, PathConstants.BSL_FowardPoint1, 5.0);  // S1: Forward 17 Inches with 5 Sec timeout
+                encoderDrive(DRIVE_SPEED, PathConstants.BlueFrontStage_CenterSpike_ForwardPoint1, PathConstants.BlueFrontStage_CenterSpike_ForwardPoint1, 5.0);  // S1: Forward 17 Inches with 5 Sec timeout
                 wrist.setPosition(wristDownPosition);
                 sleep(100);  // pause to display final telemetry message.
                 // Drive forward to point 2
-                encoderDrive(DRIVE_SPEED, PathConstants.BSL_FowardPoint2, PathConstants.BSL_FowardPoint2, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
+                encoderDrive(DRIVE_SPEED, PathConstants.BlueFrontStage_CenterSpike_ForwardPoint2, PathConstants.BlueFrontStage_CenterSpike_ForwardPoint2, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
                 runtime.reset();
                 // Open gripper and drop pixels
                 if (gripper.getPosition() != gripperOpenPosition) {
@@ -242,7 +253,7 @@ public class RobotAutoDriveByEncoder_Linear_Diff_BSL extends LinearOpMode {
                 sleep(100);  // pause to display final telemetry message.
 
                 // Reverse backwards to point 3
-                encoderDrive(DRIVE_SPEED/3, PathConstants.BSL_BackwardPoint3, PathConstants.BSL_BackwardPoint3, 5.0);  // S1: Forward -3 Inches with 5 Sec timeout
+                encoderDrive(DRIVE_SPEED/3, PathConstants.BlueFrontStage_CenterSpike_BackwardPoint3, PathConstants.BlueFrontStage_CenterSpike_BackwardPoint3, 5.0);  // S1: Forward -3 Inches with 5 Sec timeout
                 sleep(100);  // pause to display final telemetry message.
                 // Get wrist Down
                 wrist.setPosition(wristDownPosition- PathConstants.WristDownOffset);
@@ -256,35 +267,11 @@ public class RobotAutoDriveByEncoder_Linear_Diff_BSL extends LinearOpMode {
                 // Lift wrist
                 wrist.setPosition(wristUpPosition);
                 sleep(100);  // pause to display final telemetry message.
-                // Reverse to point 4
-                encoderDrive(DRIVE_SPEED, PathConstants.BSL_BackwardPoint4, PathConstants.BSL_BackwardPoint4, 5.0);
-
-                // turn left to point 5
-                encoderDrive(TURN_SPEED, -PathConstants.BSL_TurnLeft5  , PathConstants.BSL_TurnLeft5, 5.0);
-                // reverse to reach board to drop off point
-                encoderDrive(DRIVE_SPEED, PathConstants.BSL_BackwardPoint6-PathConstants.BSL_BackwardPoint6_Offset, PathConstants.BSL_BackwardPoint6-PathConstants.BSL_BackwardPoint6_Offset, 5.0);  // S1: Forward -38 Inches with 5 Sec timeout
-                // lift arm to score
-                encoderArm(armSpeed*2, armScoreLeftPosition, 5.0);
-                runtime.reset();
-                // open gripper to drop pixel
-                do {
-                    gripper.setPosition(gripperOpenPosition);// Open Gripper to drop of pixel
-                } while (gripper.getPosition() != gripperOpenPosition | (runtime.seconds() < 1.0));
-                sleep(100);
-
-
-                // Park
-                // go forward by ParkPoint 1
-                encoderDrive(DRIVE_SPEED, PathConstants.BSL_ParkPoint1, PathConstants.BSL_ParkPoint1, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
-                // drop arm to intake position
-                encoderArm(-armSpeed*2, armIntakePosition, 5.0);
-                // turn left to ParkPoint2
-                encoderDrive(TURN_SPEED, PathConstants.BSL_ParkTurnLeft2, -PathConstants.BSL_ParkTurnLeft2, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
-                // reverse to ParkPoint 3
-                encoderDrive(DRIVE_SPEED*2, PathConstants.BSL_ParkPoint3, PathConstants.BSL_ParkPoint3, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
-                telemetry.addData("Path", "Complete");
-                telemetry.update();
-                sleep(100);  // pause to display final telemetry message.*/
+                //back point 4 30 inches
+                //turn right point 5
+                // backward point 6 and park
+                // turn left to point 7
+                // backward point 8 to center parking zone
             }
             else if (location==Prop.LEFT)
             {
@@ -293,15 +280,15 @@ public class RobotAutoDriveByEncoder_Linear_Diff_BSL extends LinearOpMode {
                 ;
 
                 // Drive forward to point 1
-                encoderDrive(DRIVE_SPEED, PathConstants.BSL_FowardPoint1, PathConstants.BSL_FowardPoint1, 5.0);  // S1: Forward 17 Inches with 5 Sec timeout
-               // wrist.setPosition(wristDownPosition);
+                encoderDrive(DRIVE_SPEED, PathConstants.BlueFrontStage_LeftSpike_ForwardPoint1, PathConstants.BlueFrontStage_LeftSpike_ForwardPoint1, 5.0);  // S1: Forward 17 Inches with 5 Sec timeout
+                // wrist.setPosition(wristDownPosition);
                 sleep(100);  // pause to display final telemetry message.
                 // Drive to point 2 with left offset
-                encoderDrive(DRIVE_SPEED, PathConstants.BSL_FowardPoint2+PathConstants.BSL_ForwardPoint2_Left_Offset, PathConstants.BSL_FowardPoint2+PathConstants.BSL_ForwardPoint2_Left_Offset, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
-                // turn left to point 5 with left turn 5 offset
-                encoderDrive(TURN_SPEED, -PathConstants.BSL_TurnLeft5-PathConstants.BSL_TurnLeft5_Left_Offset  , PathConstants.BSL_TurnLeft5+PathConstants.BSL_TurnLeft5_Left_Offset, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
-                // Drive Backward to Point 6
-                encoderDrive(DRIVE_SPEED, PathConstants.BSL_Left_BackwardPoint6, PathConstants.BSL_Left_BackwardPoint6, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
+                encoderDrive(DRIVE_SPEED, PathConstants.BlueFrontStage_LeftSpike_ForwardPoint2, PathConstants.BlueFrontStage_LeftSpike_ForwardPoint2, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
+                // Turn left
+                encoderDrive(TURN_SPEED, PathConstants.BlueFrontStage_LeftSpike_TurnLeft3 , -PathConstants.BlueFrontStage_LeftSpike_TurnLeft3, 5.0);
+                // Drive Backward to Point 4
+                encoderDrive(DRIVE_SPEED, PathConstants.BlueFrontStage_LeftSpike_Forward4, PathConstants.BlueFrontStage_LeftSpike_Forward4, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
                 wrist.setPosition(wristDownPosition);
                 sleep(300);
                 wrist.setPosition(wristDownPosition);
@@ -314,8 +301,8 @@ public class RobotAutoDriveByEncoder_Linear_Diff_BSL extends LinearOpMode {
                 }
                 sleep(100);  // pause to display final telemetry message.
 
-                // Reverse by BSL_BackwardPoint3 to pick up dropped pixel
-                encoderDrive(DRIVE_SPEED/3, PathConstants.BSL_BackwardPoint3,PathConstants.BSL_BackwardPoint3, 5.0);  // S1: Forward -3 Inches with 5 Sec timeout
+                // Reverse by BlueFrontStage_LeftSpike_BackwardPoint5 to pick up yellow pixel
+                encoderDrive(DRIVE_SPEED/3, PathConstants.BlueFrontStage_LeftSpike_BackwardPoint5,PathConstants.BlueFrontStage_LeftSpike_BackwardPoint5, 5.0);  // S1: Forward -3 Inches with 5 Sec timeout
                 sleep(300);  // pause to display final telemetry message.
 
                 // wrist Down
@@ -326,42 +313,20 @@ public class RobotAutoDriveByEncoder_Linear_Diff_BSL extends LinearOpMode {
                 // Pick up pixel
                 sleep(300);
                 if (gripper.getPosition() != gripperClosedPosition) {
-                    gripper.setPosition(gripperClosedPosition);// Open Gripper to drop of pixel
+                    gripper.setPosition(gripperClosedPosition);// close Gripper to pick up pixel
                 }
                 sleep(300);  // pause to display final telemetry message.
                 // Lift wrist
                 wrist.setPosition(wristUpPosition-0.2);
                 sleep(300);  // pause to display final telemetry message.
+                // backward 6 away from spike mark
+                // turn right 7
+                //back point 8 30 inches
+                //turn right point 9
+                // backward point 10 and park
+                // turn left to point 11
+                // backward point 12 to center parking zone
 
-                // Reverse to point 4
-                encoderDrive(DRIVE_SPEED, PathConstants.BSL_BackwardPoint4, PathConstants.BSL_BackwardPoint4, 5.0);
-
-                //sleep(100);  // pause to display final telemetry message.
-
-                // reverse by 37
-                encoderDrive(DRIVE_SPEED, PathConstants.BSL_Left_BackwardPoint7, PathConstants.BSL_Left_BackwardPoint7, 5.0);  // S1: Forward -38 Inches with 5 Sec timeout
-                // lift arm to score
-                encoderArm(armSpeed*2, armScoreLeftPosition, 5.0);
-                runtime.reset();
-                // open gripper to drop pixel
-                do {
-                    gripper.setPosition(gripperOpenPosition);// Open Gripper to drop of pixel
-                } while (gripper.getPosition() != gripperOpenPosition | (runtime.seconds() < 1.0));
-                sleep(100);
-                encoderArm(-armSpeed*2, armIntakePosition, 5.0);
-
-
-                // Park
-                // go forward to park point 1
-                encoderDrive(DRIVE_SPEED, PathConstants.BSL_Left_ParkPoint1, PathConstants.BSL_Left_ParkPoint1, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
-                // drop arm to intake position
-                // turn left by turn left 2
-                encoderDrive(TURN_SPEED, PathConstants.BSL_Left_ParkTurnLeft2, -PathConstants.BSL_Left_ParkTurnLeft2, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
-                // reverse to park point 2
-                encoderDrive(DRIVE_SPEED*2, PathConstants.BSL_Left_ParkPoint3, PathConstants.BSL_Left_ParkPoint3, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
-                telemetry.addData("Path", "Complete");
-                telemetry.update();
-                sleep(100);  // pause to display final telemetry message.*/
             }
             else
             {
@@ -370,17 +335,17 @@ public class RobotAutoDriveByEncoder_Linear_Diff_BSL extends LinearOpMode {
                 ;
 
                 // Drive forward to point 1
-                encoderDrive(DRIVE_SPEED, PathConstants.BSL_FowardPoint1, PathConstants.BSL_FowardPoint1, 5.0);  // S1: Forward 17 Inches with 5 Sec timeout
+                encoderDrive(DRIVE_SPEED, PathConstants.BlueFrontStage_RightSpike_ForwardPoint1, PathConstants.BlueFrontStage_RightSpike_ForwardPoint1, 5.0);  // S1: Forward 17 Inches with 5 Sec timeout
                 wrist.setPosition(wristDownPosition);
                 sleep(100);  // pause to display final telemetry message.
 
                 // Drive to point 2 with right offset
-                encoderDrive(DRIVE_SPEED, PathConstants.BSL_FowardPoint2+PathConstants.BSL_ForwardPoint2_Right_Offset, PathConstants.BSL_FowardPoint2+PathConstants.BSL_ForwardPoint2_Right_Offset, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
+                encoderDrive(DRIVE_SPEED, PathConstants.BlueFrontStage_RightSpike_ForwardPoint2, PathConstants.BlueFrontStage_RightSpike_ForwardPoint2, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
                 // turn left with right offset
                 sleep(260);  // pause to display final telemetry message.
-                encoderDrive(TURN_SPEED, -PathConstants.BSL_TurnLeft5+PathConstants.BSL_TurnLeft5_Right_Offset  , PathConstants.BSL_TurnLeft5-PathConstants.BSL_TurnLeft5_Right_Offset, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
+                encoderDrive(TURN_SPEED, PathConstants.BlueFrontStage_RightSpike_TurnRight3  , -PathConstants.BlueFrontStage_RightSpike_TurnRight3, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
                 // Move to
-                encoderDrive(DRIVE_SPEED, PathConstants.BSL_Right_FowardPoint3, PathConstants.BSL_Right_FowardPoint3, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
+                encoderDrive(DRIVE_SPEED, PathConstants.BlueFrontStage_RightSpike_ForwardPoint4, PathConstants.BlueFrontStage_RightSpike_ForwardPoint4, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
 
                 runtime.reset();
                 // Open gripper and drop pixels
@@ -390,7 +355,7 @@ public class RobotAutoDriveByEncoder_Linear_Diff_BSL extends LinearOpMode {
                 sleep(100);  // pause to display final telemetry message.
 
                 // Reverse by  FORWARD POINT 3
-                encoderDrive(DRIVE_SPEED/3, PathConstants.BSL_BackwardPoint3,PathConstants.BSL_BackwardPoint3, 5.0);  // S1: Forward -3 Inches with 5 Sec timeout
+                encoderDrive(DRIVE_SPEED/3, -PathConstants.BlueFrontStage_RightSpike_ForwardPoint4,-PathConstants.BlueFrontStage_RightSpike_ForwardPoint4, 5.0);  // S1: Forward -3 Inches with 5 Sec timeout
                 sleep(300);  // pause to display final telemetry message.
                 wrist.setPosition(wristDownPosition-PathConstants.WristDownOffset);
 
@@ -404,37 +369,15 @@ public class RobotAutoDriveByEncoder_Linear_Diff_BSL extends LinearOpMode {
                 // Lift wrist
                 wrist.setPosition(wristUpPosition);
                 sleep(300);  // pause to display final telemetry message.
-                // Reverse by 1
-                encoderDrive(DRIVE_SPEED, PathConstants.BSL_BackwardPoint4, PathConstants.BSL_BackwardPoint4, 5.0);  // S1: Forward -3 Inches with 5 Sec timeout
+                // point 5???
+                // backward 6 away from spike mark
+                // turn right 7
+                //back point 8 30 inches
+                //turn right point 9
+                // backward point 10 and park
+                // turn left to point 11
+                // backward point 12 to center parking zone
 
-                //sleep(100);  // pause to display final telemetry message.
-
-                // reverse by drop off point
-                encoderDrive(DRIVE_SPEED, PathConstants.BSL_Right_BackwardPoint6, PathConstants.BSL_Right_BackwardPoint6, 5.0);  // S1: Forward -38 Inches with 5 Sec timeout
-                // lift arm to score
-                encoderArm(armSpeed*2, armScoreLeftPosition, 5.0);
-                runtime.reset();
-                // open gripper to drop pixel
-                do {
-                    gripper.setPosition(gripperOpenPosition);// Open Gripper to drop of pixel
-                } while (gripper.getPosition() != gripperOpenPosition | (runtime.seconds() < 1.0));
-                sleep(100);
-                // get arm back to home
-                encoderArm(-armSpeed*2, armIntakePosition, 5.0);
-
-
-                // Park
-                // go forward to park point 1
-                encoderDrive(DRIVE_SPEED, PathConstants.BSL_Left_ParkPoint1, PathConstants.BSL_Left_ParkPoint1, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
-                // drop arm to intake position
-                // turn left by turn left 2
-                encoderDrive(TURN_SPEED, PathConstants.BSL_Left_ParkTurnLeft2, -PathConstants.BSL_Left_ParkTurnLeft2, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
-                // reverse to park point 2
-                encoderDrive(DRIVE_SPEED*2, PathConstants.BSL_Left_ParkPoint3, PathConstants.BSL_Left_ParkPoint3, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
-
-                telemetry.addData("Path", "Complete");
-                telemetry.update();
-                sleep(100);  // pause to display final telemetry message.*/
             }
             terminateOpModeNow();
 
@@ -481,13 +424,13 @@ public class RobotAutoDriveByEncoder_Linear_Diff_BSL extends LinearOpMode {
             // However, if you require that BOTH motors have finished their moves before the robot continues
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
             while (opModeIsActive() &&
-                   (runtime.seconds() < timeoutS) &&
-                   (leftDrive.isBusy() && rightDrive.isBusy())) {
+                    (runtime.seconds() < timeoutS) &&
+                    (leftDrive.isBusy() && rightDrive.isBusy())) {
 
                 // Display it for the driver.
                 telemetry.addData("Running to",  " %7d :%7d", newLeftTarget,  newRightTarget);
                 telemetry.addData("Currently at",  " at %7d :%7d",
-                                            leftDrive.getCurrentPosition(), rightDrive.getCurrentPosition());
+                        leftDrive.getCurrentPosition(), rightDrive.getCurrentPosition());
                 telemetry.update();
             }
 
@@ -505,31 +448,31 @@ public class RobotAutoDriveByEncoder_Linear_Diff_BSL extends LinearOpMode {
 
     public void encoderArm( double speed,int EncoderTarget,
                             double timeoutS) {
-            runtime.reset();
+        runtime.reset();
+        armLeft.setTargetPosition(EncoderTarget);
+        armRight.setTargetPosition(-EncoderTarget);
+        armLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armLeft.setPower(-speed);
+        armRight.setPower(speed);
+
+
+        while ((armLeft.isBusy() || armRight.isBusy()) &&(runtime.seconds() < timeoutS)) {
             armLeft.setTargetPosition(EncoderTarget);
             armRight.setTargetPosition(-EncoderTarget);
             armLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             armRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             armLeft.setPower(-speed);
             armRight.setPower(speed);
-
-
-            while ((armLeft.isBusy() || armRight.isBusy()) &&(runtime.seconds() < timeoutS)) {
-                armLeft.setTargetPosition(EncoderTarget);
-                armRight.setTargetPosition(-EncoderTarget);
-                armLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                armRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                armLeft.setPower(-speed);
-                armRight.setPower(speed);
-                // Display it for the driver.
-               telemetry.addData("arm Running to", "left %7d and right %7d ",
-                        EncoderTarget,-EncoderTarget);
-                telemetry.addData("arm Left Currently at", " at %7d",
-                        armLeft.getCurrentPosition());
-                telemetry.addData("arm Right Currently at", " at %7d",
-                        armRight.getCurrentPosition());
-                telemetry.update();
-            }
+            // Display it for the driver.
+            telemetry.addData("arm Running to", "left %7d and right %7d ",
+                    EncoderTarget,-EncoderTarget);
+            telemetry.addData("arm Left Currently at", " at %7d",
+                    armLeft.getCurrentPosition());
+            telemetry.addData("arm Right Currently at", " at %7d",
+                    armRight.getCurrentPosition());
+            telemetry.update();
+        }
 
     }
 }
