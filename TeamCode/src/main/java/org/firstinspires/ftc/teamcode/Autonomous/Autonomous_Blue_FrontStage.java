@@ -379,7 +379,7 @@ public class Autonomous_Blue_FrontStage extends LinearOpMode {
                 // backward point 12 to center parking zone
 
             }
-            terminateOpModeNow();
+            //terminateOpModeNow();
 
 
         }

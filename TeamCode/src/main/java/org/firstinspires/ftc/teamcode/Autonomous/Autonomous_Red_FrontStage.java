@@ -375,7 +375,7 @@ public class Autonomous_Red_FrontStage extends LinearOpMode {
                 // backward point 12 to center parking zone
 
             }
-            terminateOpModeNow();
+           // terminateOpModeNow();
 
 
         }

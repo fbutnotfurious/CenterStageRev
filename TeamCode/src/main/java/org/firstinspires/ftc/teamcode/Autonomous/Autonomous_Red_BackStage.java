@@ -441,7 +441,7 @@ public class Autonomous_Red_BackStage extends LinearOpMode {
                 telemetry.update();
                 sleep(100);  // pause to display final telemetry message.*/
             }
-            terminateOpModeNow();
+           // terminateOpModeNow();
 
 
         }
