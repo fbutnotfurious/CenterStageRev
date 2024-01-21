@@ -309,8 +309,9 @@ public class Autonomous_Red_BackStage extends LinearOpMode {
                 // Drive to point 2 with right offset
                 encoderDrive(DRIVE_SPEED, PathConstants.RedBackStage_LeftSpike_ForwardPoint2, PathConstants.RedBackStage_LeftSpike_ForwardPoint2, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
                 // turn left with right offset
-                encoderDrive(TURN_SPEED, -PathConstants.RedBackStage_LeftSpike_TurnRight3  , PathConstants.RedBackStage_LeftSpike_TurnRight3 , 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
+                encoderDrive(TURN_SPEED, PathConstants.RedBackStage_LeftSpike_TurnRight3  , -PathConstants.RedBackStage_LeftSpike_TurnRight3 , 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
                 // Move to
+
                 encoderDrive(DRIVE_SPEED, PathConstants.RedBackStage_LeftSpike_ForwardPoint4, PathConstants.RedBackStage_LeftSpike_ForwardPoint4, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
 
                 runtime.reset();
@@ -417,7 +418,7 @@ public class Autonomous_Red_BackStage extends LinearOpMode {
                 //sleep(100);  // pause to display final telemetry message.
 
                 // reverse to drop off point
-                encoderDrive(DRIVE_SPEED, -PathConstants.RedBackStage_RightSpike_BackwardPoint7, PathConstants.RedBackStage_RightSpike_BackwardPoint7, 5.0);  // S1: Forward -38 Inches with 5 Sec timeout
+                encoderDrive(DRIVE_SPEED, PathConstants.RedBackStage_RightSpike_BackwardPoint7, PathConstants.RedBackStage_RightSpike_BackwardPoint7, 5.0);  // S1: Forward -38 Inches with 5 Sec timeout
                 // lift arm to score
                 encoderArm(armSpeed*2, armScoreLeftPosition, 5.0);
                 runtime.reset();
@@ -441,7 +442,7 @@ public class Autonomous_Red_BackStage extends LinearOpMode {
                 telemetry.update();
                 sleep(100);  // pause to display final telemetry message.*/
             }
-           // terminateOpModeNow();
+            terminateOpModeNow();
 
 
         }

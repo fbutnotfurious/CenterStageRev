@@ -288,7 +288,7 @@ public class Autonomous_Blue_FrontStage extends LinearOpMode {
                 // Turn left
                 encoderDrive(TURN_SPEED, PathConstants.BlueFrontStage_LeftSpike_TurnLeft3 , -PathConstants.BlueFrontStage_LeftSpike_TurnLeft3, 5.0);
                 // Drive Backward to Point 4
-                encoderDrive(DRIVE_SPEED, PathConstants.BlueFrontStage_LeftSpike_Forward4, PathConstants.BlueFrontStage_LeftSpike_Forward4, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
+                encoderDrive(DRIVE_SPEED, -PathConstants.BlueFrontStage_LeftSpike_Forward4, -PathConstants.BlueFrontStage_LeftSpike_Forward4, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
                 wrist.setPosition(wristDownPosition);
                 sleep(300);
                 wrist.setPosition(wristDownPosition);
@@ -296,6 +296,8 @@ public class Autonomous_Blue_FrontStage extends LinearOpMode {
 
                 runtime.reset();
                 // Open gripper and drop pixels
+                encoderDrive(DRIVE_SPEED, PathConstants.BlueFrontStage_LeftSpike_Forward4, PathConstants.BlueFrontStage_LeftSpike_Forward4, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
+
                 if (gripper.getPosition() != gripperOpenPosition) {
                     gripper.setPosition(gripperOpenPosition);// Open Gripper to drop of pixel
                 }
@@ -345,7 +347,7 @@ public class Autonomous_Blue_FrontStage extends LinearOpMode {
                 sleep(260);  // pause to display final telemetry message.
                 encoderDrive(TURN_SPEED, PathConstants.BlueFrontStage_RightSpike_TurnRight3  , -PathConstants.BlueFrontStage_RightSpike_TurnRight3, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
                 // Move to
-                encoderDrive(DRIVE_SPEED, PathConstants.BlueFrontStage_RightSpike_ForwardPoint4, PathConstants.BlueFrontStage_RightSpike_ForwardPoint4, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
+                encoderDrive(DRIVE_SPEED, PathConstants.BlueFrontStage_LeftSpike_Forward_3_5, PathConstants.BlueFrontStage_LeftSpike_Forward_3_5, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
 
                 runtime.reset();
                 // Open gripper and drop pixels
@@ -379,7 +381,7 @@ public class Autonomous_Blue_FrontStage extends LinearOpMode {
                 // backward point 12 to center parking zone
 
             }
-            //terminateOpModeNow();
+            terminateOpModeNow();
 
 
         }

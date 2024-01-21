@@ -387,7 +387,7 @@ public class Autonomous_Blue_BackStage extends LinearOpMode {
                 encoderDrive(DRIVE_SPEED, PathConstants.BlueBackStage_RightSpike_ForwardPoint2, PathConstants.BlueBackStage_RightSpike_ForwardPoint2, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
                 // turn left with right offset
                 sleep(260);  // pause to display final telemetry message.
-                encoderDrive(TURN_SPEED, -PathConstants.BlueBackStage_RightSpike_TurnRight3  , PathConstants.BlueBackStage_RightSpike_TurnRight3, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
+                encoderDrive(TURN_SPEED, PathConstants.BlueBackStage_RightSpike_TurnRight3  , -PathConstants.BlueBackStage_RightSpike_TurnRight3, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
                 // Move to
                 encoderDrive(DRIVE_SPEED, PathConstants.BlueBackStage_RightSpike_ForwardPoint4, PathConstants.BlueBackStage_RightSpike_ForwardPoint4, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
 
@@ -445,7 +445,7 @@ public class Autonomous_Blue_BackStage extends LinearOpMode {
                 telemetry.update();
                 sleep(100);  // pause to display final telemetry message.*/
             }
-           // terminateOpModeNow();
+            terminateOpModeNow();
 
 
         }

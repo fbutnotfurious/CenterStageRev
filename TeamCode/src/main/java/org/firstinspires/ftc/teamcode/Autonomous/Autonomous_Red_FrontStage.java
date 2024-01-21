@@ -284,13 +284,16 @@ public class Autonomous_Red_FrontStage extends LinearOpMode {
                 // Turn left
                 encoderDrive(TURN_SPEED, -PathConstants.RedFrontStage_LeftSpike_TurnRight3 , PathConstants.RedFrontStage_LeftSpike_TurnRight3, 5.0);
                 // Drive Backward to Point 4
-                encoderDrive(DRIVE_SPEED, PathConstants.RedFrontStage_LeftSpike_Forward4, PathConstants.RedFrontStage_LeftSpike_Forward4, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
+                encoderDrive(DRIVE_SPEED, -PathConstants.RedFrontStage_LeftSpike_Forward4, -PathConstants.RedFrontStage_LeftSpike_Forward4, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
+
                 wrist.setPosition(wristDownPosition);
                 sleep(300);
                 wrist.setPosition(wristDownPosition);
                 sleep(300);
 
                 runtime.reset();
+                encoderDrive(DRIVE_SPEED, PathConstants.RedFrontStage_LeftSpike_Forward4, PathConstants.RedFrontStage_LeftSpike_Forward4, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
+
                 // Open gripper and drop pixels
                 if (gripper.getPosition() != gripperOpenPosition) {
                     gripper.setPosition(gripperOpenPosition);// Open Gripper to drop of pixel
@@ -375,7 +378,7 @@ public class Autonomous_Red_FrontStage extends LinearOpMode {
                 // backward point 12 to center parking zone
 
             }
-           // terminateOpModeNow();
+            terminateOpModeNow();
 
 
         }

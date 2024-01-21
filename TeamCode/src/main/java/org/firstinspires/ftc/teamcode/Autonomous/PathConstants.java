@@ -92,7 +92,9 @@ public class PathConstants {
     static final double BlueFrontStage_LeftSpike_ForwardPoint1=16.5;
     static final double BlueFrontStage_LeftSpike_ForwardPoint2=13.0;//12.0
     static final double BlueFrontStage_LeftSpike_TurnLeft3=-11;
-    static final double BlueFrontStage_LeftSpike_Forward4=-22;// placeholder
+    static final double BlueFrontStage_LeftSpike_Forward_3_5=1;// -22placeholder
+
+    static final double BlueFrontStage_LeftSpike_Forward4=3;// -22placeholder
     static final double BlueFrontStage_LeftSpike_BackwardPoint5=-3.0;
     // Common Blue Front Stage
     // Right Spike Mark
@@ -183,7 +185,7 @@ public class PathConstants {
     static final double RedFrontStage_LeftSpike_ForwardPoint1=16.5;
     static final double RedFrontStage_LeftSpike_ForwardPoint2=13.0;
     static final double RedFrontStage_LeftSpike_TurnRight3=11;
-    static final double RedFrontStage_LeftSpike_Forward4=-22;// placeholder
+    static final double RedFrontStage_LeftSpike_Forward4=3;// -22placeholder
     static final double RedFrontStage_LeftSpike_BackwardPoint5=-3.0;
     // Common Blue Front Stage
     // Right Spike Mark
