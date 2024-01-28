@@ -35,15 +35,14 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.teamcode.Pipelines.Prop;
+import org.firstinspires.ftc.teamcode.Pipelines.StartPosition;
+import org.firstinspires.ftc.teamcode.Pipelines.WebcamPipeline;
 import org.openftc.apriltag.AprilTagDetection;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
-
-import org.firstinspires.ftc.teamcode.Pipelines.Prop;
-import org.firstinspires.ftc.teamcode.Pipelines.StartPosition;
-import org.firstinspires.ftc.teamcode.Pipelines.WebcamPipeline;
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 
 /*
  * This OpMode illustrates the concept of driving a path based on encoder counts.
@@ -80,9 +79,9 @@ The program attempts to recognize a Team Prop on a spike mark, place the purple 
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Backstage Red Robot: Auto Drive By Encoder Diff", group="Robot")
+@Autonomous(name="Backstage Red Robot, Corner  park: Auto Drive By Encoder Diff", group="Robot")
 //@Disabled
-public class Autonomous_Red_BackStage extends LinearOpMode {
+public class Autonomous_Red_BackStage_CornerPark extends LinearOpMode {
 
     OpenCvCamera webcam;
     /* Declare OpMode members. */
@@ -290,7 +289,8 @@ public class Autonomous_Red_BackStage extends LinearOpMode {
                 // turn left to ParkPoint2
                 encoderDrive(TURN_SPEED, -PathConstants.RedBackStage_CenterSpike_ParkTurnLeft2, +PathConstants.RedBackStage_CenterSpike_ParkTurnLeft2, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
                 // reverse to ParkPoint 3
-                encoderDrive(DRIVE_SPEED*2, PathConstants.RedBackStage_CenterSpike_ParkBackwardPoint3, PathConstants.RedBackStage_CenterSpike_ParkBackwardPoint3, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+                encoderDrive(DRIVE_SPEED*2, PathConstants.RedBackStage_CenterSpike_ParkBackwardPoint3_Corner,
+                        PathConstants.RedBackStage_CenterSpike_ParkBackwardPoint3_Corner, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
                 telemetry.addData("Path", "Complete");
                 telemetry.update();
                 sleep(100);  // pause to display final telemetry message.*/
@@ -363,7 +363,8 @@ public class Autonomous_Red_BackStage extends LinearOpMode {
                 // turn left by turn left 2
                 encoderDrive(TURN_SPEED, -PathConstants.RedBackStage_LeftSpike_ParkTurnLeft2, +PathConstants.RedBackStage_LeftSpike_ParkTurnLeft2, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
                 // reverse to park point 2
-                encoderDrive(DRIVE_SPEED*2, PathConstants.RedBackStage_LeftSpike_ParkBackwardPoint3, PathConstants.RedBackStage_LeftSpike_ParkBackwardPoint3, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+                encoderDrive(DRIVE_SPEED*2, PathConstants.RedBackStage_LeftSpike_ParkBackwardPoint3_Corner,
+                        PathConstants.RedBackStage_LeftSpike_ParkBackwardPoint3_Corner, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
 
                 telemetry.addData("Path", "Complete");
                 telemetry.update();
@@ -435,9 +436,11 @@ public class Autonomous_Red_BackStage extends LinearOpMode {
                 encoderDrive(DRIVE_SPEED, PathConstants.RedBackStage_RightSpike_ParkForwardPoint1, PathConstants.RedBackStage_RightSpike_ParkForwardPoint1, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
                 // drop arm to intake position
                 // turn left by turn left 2
-                encoderDrive(TURN_SPEED, -PathConstants.RedBackStage_RightSpike_ParkTurnLeft2, +PathConstants.RedBackStage_RightSpike_ParkTurnLeft2, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+                encoderDrive(TURN_SPEED, -PathConstants.RedBackStage_RightSpike_ParkTurnLeft2_Corner,
+                        PathConstants.RedBackStage_RightSpike_ParkTurnLeft2_Corner, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
                 // reverse to park point 2
-                encoderDrive(DRIVE_SPEED*2, PathConstants.RedBackStage_RightSpike_ParkBackwardPoint3, PathConstants.RedBackStage_RightSpike_ParkBackwardPoint3, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+                encoderDrive(DRIVE_SPEED*2, PathConstants.RedBackStage_RightSpike_ParkBackwardPoint3_Corner,
+                        PathConstants.RedBackStage_RightSpike_ParkBackwardPoint3_Corner, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
                 telemetry.addData("Path", "Complete");
                 telemetry.update();
                 sleep(100);  // pause to display final telemetry message.*/

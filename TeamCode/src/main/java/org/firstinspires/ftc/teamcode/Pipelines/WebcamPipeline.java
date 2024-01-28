@@ -119,13 +119,14 @@ public class WebcamPipeline extends OpenCvPipeline {
         Scalar colorNone = new Scalar(255, 0, 0); // color scheme for targeting boxes drawn on the display
         Scalar colorTSE = new Scalar(0, 255, 0);
 
-        //Imgproc.rectangle(mat, NONCENTER_ROI, location == detectableNoncenter? colorTSE:colorNone); // the target boxes surround the ROI's
-        //Imgproc.rectangle(mat, CENTER_ROI, location == Prop.CENTER? colorTSE:colorNone);
-        Imgproc.rectangle(input, NONCENTER_ROI, location == detectableNoncenter? colorTSE:colorNone); // the target boxes surround the ROI's
-        Imgproc.rectangle(input, CENTER_ROI, location == Prop.CENTER? colorTSE:colorNone);
+        Imgproc.rectangle(mat, NONCENTER_ROI, location == detectableNoncenter? colorTSE:colorNone); // the target boxes surround the ROI's
+        Imgproc.rectangle(mat, CENTER_ROI, location == Prop.CENTER? colorTSE:colorNone);
+        //Imgproc.rectangle(input, NONCENTER_ROI, location == detectableNoncenter? colorTSE:colorNone); // the target boxes surround the ROI's
+        //Imgproc.rectangle(input, CENTER_ROI, location == Prop.CENTER? colorTSE:colorNone);
 
-        //return mat;
-        return input;
+        return mat;
+        //return input
+
     }
     public Prop getPropLocation() {
         return location;
