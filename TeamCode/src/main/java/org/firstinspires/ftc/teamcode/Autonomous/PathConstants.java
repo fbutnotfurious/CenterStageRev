@@ -196,21 +196,29 @@ public class PathConstants {
     // front stage Red
     //Center
     static final double RedFrontStage_CenterSpike_ForwardPoint1=16.5;
-    static final double RedFrontStage_CenterSpike_ForwardPoint2=13.0;
+    static final double RedFrontStage_CenterSpike_ForwardPoint2=12.0;
     static final double RedFrontStage_CenterSpike_BackwardPoint3=-3.0;
+    static final double RedFrontStage_CenterSpike_BackwardPoint4=-26.0;
+    static final double RedFrontStage_CenterSpike_TurnRight1=-11;
+    static final double RedFrontStage_CenterSpike_ForwardPoint3=55;
+    static final double RedFrontStage_CenterSpike_TurnLeft1=4;
+    static final double RedFrontStage_CenterSpike_ForwardPoint4=36;
     // Left
-    static final double RedFrontStage_LeftSpike_ForwardPoint1=16.5;
-    static final double RedFrontStage_LeftSpike_ForwardPoint2=13.0;
-    static final double RedFrontStage_LeftSpike_TurnRight3=11;
-    static final double RedFrontStage_LeftSpike_Forward4=3;// -22placeholder
-    static final double RedFrontStage_LeftSpike_BackwardPoint5=-3.0;
-    // Common Blue Front Stage
-    // Right Spike Mark
-    static final double RedFrontStage_RightSpike_ForwardPoint1=16.5;
-    static final double RedFrontStage_RightSpike_ForwardPoint2=13.0;
-    static final double RedFrontStage_RightSpike_TurnRight3=13;
-    static final double RedFrontStage_RightSpike_ForwardPoint4=3.0;
-
+    static final double RedFrontStage_LeftSpike_ForwardPoint1=4;
+    static final double RedFrontStage_LeftSpike_TurnLeft1=3;
+    static final double RedFrontStage_LeftSpike_ForwardPoint2=11.0;
+    static final double RedFrontStage_LeftSpike_TurnRight1=-3.5;
+    static final double RedFrontStage_LeftSpike_ForwardPoint3=5;
+    static final double RedFrontStage_LeftSpike_BackwardPoint4=-11.0;
+    static final double RedFrontStage_LeftSpike_BackwardPoint5=-4.0;
+    // Right
+    static final double RedFrontStage_RightSpike_ForwardPoint1=11;
+    static final double RedFrontStage_RightSpike_TurnRight1=-5;
+    static final double RedFrontStage_RightSpike_ForwardPoint2=7.0;
+    static final double RedFrontStage_RightSpike_TurnLeft1=6;
+    static final double RedFrontStage_RightSpike_ForwardPoint3=7;
+    static final double RedFrontStage_RightSpike_BackwardPoint4=-12.0;
+    static final double RedFrontStage_RightSpike_BackwardPoint5=-4.0;
     }
 
 
