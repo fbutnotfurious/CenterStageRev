@@ -77,9 +77,9 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Frontstage Blue Robot: Auto Drive By Encoder Diff", group="Robot")
+@Autonomous(name="Frontstage Blue Robot IMPPROVED TURN: Auto Drive By Encoder Diff", group="Robot")
 //@Disabled
-public class Autonomous_Blue_FrontStage extends LinearOpMode {
+public class Autonomous_Blue_FrontStage_ImprovedTurn extends LinearOpMode {
 
     OpenCvCamera webcam;
     /* Declare OpMode members. */
@@ -190,36 +190,37 @@ public class Autonomous_Blue_FrontStage extends LinearOpMode {
             public void onOpened() {
                 webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
             }
+
             @Override
-            public void onError(int errorCode) {}
+            public void onError(int errorCode) {
+            }
         });
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         int totalTimeWaited = 0;
         boolean pipelineRan = true;
-        if(detector.getPropLocation() == null) {
+        if (detector.getPropLocation() == null) {
             telemetry.addData("ERROR", "Start was pressed too soon.");
             telemetry.update();
 
-            while(detector.getPropLocation() == null && totalTimeWaited < 7000) {
+            while (detector.getPropLocation() == null && totalTimeWaited < 7000) {
                 totalTimeWaited += (webcam.getOverheadTimeMs() * 4);
                 sleep(webcam.getOverheadTimeMs() * 4L);
             }
             telemetry.addData("Wasted time", totalTimeWaited);
-            if(totalTimeWaited > 7000) {
+            if (totalTimeWaited > 7000) {
                 telemetry.addData("ERROR", "The pipeline never ran.");
                 pipelineRan = false;
             }
             telemetry.update();
-        }
-        else {
+        } else {
             telemetry.addData("INFO", "Pipeline is running correctly");
             telemetry.update();
         }
         Prop location = Prop.CENTER;
 
-        if(pipelineRan) {
+        if (pipelineRan) {
             location = detector.getPropLocation();
             webcam.stopStreaming();
             webcam.closeCameraDevice();
@@ -227,9 +228,8 @@ public class Autonomous_Blue_FrontStage extends LinearOpMode {
 
         telemetry.addData("Running path", " BLUE_STAGE_" + location);
         telemetry.update();
-        while (opModeIsActive())
-        {
-            if (location==Prop.CENTER) {
+        while (opModeIsActive()) {
+            if (location == Prop.CENTER) {
                 // Step through each leg of the path,
                 // Note: Reverse movement is obtained by setting a negative distance (not speed)
                 ;
@@ -250,11 +250,11 @@ public class Autonomous_Blue_FrontStage extends LinearOpMode {
                 sleep(100);  // pause to display final telemetry message.
 
                 // Reverse backwards to point 3
-                //encoderDrive(DRIVE_SPEED/3, PathConstants.BlueFrontStage_CenterSpike_BackwardPoint3,
-                // PathConstants.BlueFrontStage_CenterSpike_BackwardPoint3, 5.0);  // S1: Forward -3 Inches with 5 Sec timeout
-                //sleep(100);  // pause to display final telemetry message.
+                encoderDrive(DRIVE_SPEED / 3, PathConstants.BlueFrontStage_CenterSpike_BackwardPoint3,
+                        PathConstants.BlueFrontStage_CenterSpike_BackwardPoint3, 5.0);  // S1: Forward -3 Inches with 5 Sec timeout
+                sleep(100);  // pause to display final telemetry message.
                 // Get wrist Down
-               /*wrist.setPosition(wristDownPosition- PathConstants.WristDownOffset);
+                wrist.setPosition(wristDownPosition - PathConstants.WristDownOffset);
                 runtime.reset();
                 // Pick up pixel from ground
                 if (gripper.getPosition() != gripperClosedPosition) {
@@ -268,14 +268,14 @@ public class Autonomous_Blue_FrontStage extends LinearOpMode {
                         PathConstants.BlueFrontStage_CenterSpike_BackwardPoint4, 5.0);
                 sleep(100);  // pause to display final telemetry message.
                 //turn left 90 degrees
-                encoderDrive(TURN_SPEED, -PathConstants.BlueFrontStage_CenterSpike_TurnLeft1   ,
+                encoderDrive(TURN_SPEED, -PathConstants.BlueFrontStage_CenterSpike_TurnLeft1,
                         PathConstants.BlueFrontStage_CenterSpike_TurnLeft1, 5.0);
                 //forward 55 inches
                 encoderDrive(DRIVE_SPEED, PathConstants.BlueFrontStage_CenterSpike_ForwardPoint3,
                         PathConstants.BlueFrontStage_CenterSpike_ForwardPoint3, 5.0);
                 //turn right 45 degrees
                 sleep(5000);
-                encoderDrive(TURN_SPEED, -PathConstants.BlueFrontStage_CenterSpike_TurnRight1   ,
+                encoderDrive(TURN_SPEED, -PathConstants.BlueFrontStage_CenterSpike_TurnRight1,
                         PathConstants.BlueFrontStage_CenterSpike_TurnRight1, 5.0);
                 //forward 20 inches
                 encoderDrive(DRIVE_SPEED, PathConstants.BlueFrontStage_CenterSpike_ForwardPoint4,
@@ -287,33 +287,30 @@ public class Autonomous_Blue_FrontStage extends LinearOpMode {
                 //open gripper, release pixel
                 if (gripper.getPosition() != gripperOpenPosition) {
                     gripper.setPosition(gripperOpenPosition);
-                }*/
+                }
                 sleep(1000);
-            }
-            else if (location==Prop.LEFT)
-            {
+            } else if (location == Prop.LEFT) {
                 // Step through each leg of the path,
                 // Note: Reverse movement is obtained by setting a negative distance (not speed)
                 ;
-
+                //wrist down
+                wrist.setPosition(wristDownPosition);
+                sleep(1000);  // pause to display final telemetry message.
                 // Drive forward to point1 8 inches
                 encoderDrive(DRIVE_SPEED, PathConstants.BlueFrontStage_LeftSpike_ForwardPoint1,
                         PathConstants.BlueFrontStage_LeftSpike_ForwardPoint1, 5.0);
                 //Slight left turn 3 inches
-                encoderDrive(TURN_SPEED, -PathConstants.BlueFrontStage_LeftSpike_TurnLeft1   ,
+                encoderDrive(TURN_SPEED, -PathConstants.BlueFrontStage_LeftSpike_TurnLeft1,
                         PathConstants.BlueFrontStage_LeftSpike_TurnLeft1, 5.0);
                 //Drive forward to point2 10 inches
                 encoderDrive(DRIVE_SPEED, PathConstants.BlueFrontStage_LeftSpike_ForwardPoint2,
                         PathConstants.BlueFrontStage_LeftSpike_ForwardPoint2, 5.0);
-                //wrist down
-                wrist.setPosition(wristDownPosition);
-                sleep(1000);  // pause to display final telemetry message.
                 // Drive forward to point3 5 inches
                 encoderDrive(DRIVE_SPEED, PathConstants.BlueFrontStage_LeftSpike_ForwardPoint3,
                         PathConstants.BlueFrontStage_LeftSpike_ForwardPoint3, 5.0);
                 runtime.reset();
                 //Slight left turn 3 inches
-                encoderDrive(TURN_SPEED, -PathConstants.BlueFrontStage_LeftSpike_TurnLeft1   ,
+                encoderDrive(TURN_SPEED, -PathConstants.BlueFrontStage_LeftSpike_TurnLeft1,
                         PathConstants.BlueFrontStage_LeftSpike_TurnLeft1, 5.0);
                 // Open gripper and drop pixels
                 if (gripper.getPosition() != gripperOpenPosition) {
@@ -322,11 +319,11 @@ public class Autonomous_Blue_FrontStage extends LinearOpMode {
                 sleep(100);  // pause to display final telemetry message.
 
                 // Reverse backwards to point 3
-                /*encoderDrive(DRIVE_SPEED/3, PathConstants.BlueFrontStage_CenterSpike_BackwardPoint3,
+                encoderDrive(DRIVE_SPEED / 3, PathConstants.BlueFrontStage_CenterSpike_BackwardPoint3,
                         PathConstants.BlueFrontStage_CenterSpike_BackwardPoint3, 5.0);
                 sleep(100);  // pause to display final telemetry message.
                 // Get wrist Down
-                wrist.setPosition(wristDownPosition- PathConstants.WristDownOffset);
+                wrist.setPosition(wristDownPosition - PathConstants.WristDownOffset);
                 runtime.reset();
                 // Pick up pixel from ground
                 if (gripper.getPosition() != gripperClosedPosition) {
@@ -340,24 +337,24 @@ public class Autonomous_Blue_FrontStage extends LinearOpMode {
                         PathConstants.BlueFrontStage_LeftSpike_BackwardPoint4, 5.0);
                 sleep(100);  // pause to display final telemetry message.
                 //turn right 3 inches
-                encoderDrive(TURN_SPEED, -PathConstants.BlueFrontStage_LeftSpike_TurnRight1   ,
+                encoderDrive(TURN_SPEED, -PathConstants.BlueFrontStage_LeftSpike_TurnRight1,
                         PathConstants.BlueFrontStage_LeftSpike_TurnRight1, 5.0);
                 //backward point5 4 inches
                 encoderDrive(DRIVE_SPEED, PathConstants.BlueFrontStage_LeftSpike_BackwardPoint5,
                         PathConstants.BlueFrontStage_LeftSpike_BackwardPoint5, 5.0);
-                //turn left 90 degrees
-                encoderDrive(TURN_SPEED, -PathConstants.BlueFrontStage_CenterSpike_TurnLeft1   ,
-                        PathConstants.BlueFrontStage_CenterSpike_TurnLeft1, 5.0);
+                //turn left 90 degrees`
+                encoderDrive(TURN_SPEED, PathConstants.BlueFrontStage_LeftSpike_TurnRight6,
+                        -PathConstants.BlueFrontStage_LeftSpike_TurnRight6, 5.0);
                 //forward 55 inches
-                encoderDrive(DRIVE_SPEED, PathConstants.BlueFrontStage_CenterSpike_ForwardPoint3,
-                        PathConstants.BlueFrontStage_CenterSpike_ForwardPoint3, 5.0);
+                encoderDrive(DRIVE_SPEED, PathConstants.BlueFrontStage_LeftSpike_ForwardPoint7,
+                        PathConstants.BlueFrontStage_LeftSpike_ForwardPoint7, 5.0);
                 //turn right 45 degrees
                 sleep(5000);
-                encoderDrive(TURN_SPEED, -PathConstants.BlueFrontStage_CenterSpike_TurnRight1   ,
-                        PathConstants.BlueFrontStage_CenterSpike_TurnRight1, 5.0);
+                encoderDrive(TURN_SPEED, -PathConstants.BlueFrontStage_LeftSpike_TurnLeft8,
+                        PathConstants.BlueFrontStage_LeftSpike_TurnLeft8, 5.0);
                 //forward 20 inches
-                encoderDrive(DRIVE_SPEED, PathConstants.BlueFrontStage_CenterSpike_ForwardPoint4,
-                        PathConstants.BlueFrontStage_CenterSpike_ForwardPoint4, 5.0);
+                encoderDrive(DRIVE_SPEED, PathConstants.BlueFrontStage_LeftSpike_ForwardPoint9,
+                        PathConstants.BlueFrontStage_LeftSpike_ForwardPoint9, 5.0);
                 //Wrist down
                 wrist.setPosition(wristDownPosition);
                 sleep(1000);
@@ -365,81 +362,83 @@ public class Autonomous_Blue_FrontStage extends LinearOpMode {
                 //open gripper, release pixel
                 if (gripper.getPosition() != gripperOpenPosition) {
                     gripper.setPosition(gripperOpenPosition);
-                }*/
+                }
                 sleep(1000);
             }
             else
-            {   // Step through each leg of the path,
-                // Note: Reverse movement is obtained by setting a negative distance (not speed)
-                // Drive forward to point1 4 inches
-                encoderDrive(DRIVE_SPEED, PathConstants.BlueFrontStage_RightSpike_ForwardPoint1,
-                        PathConstants.BlueFrontStage_RightSpike_ForwardPoint1, 5.0);
-                //Slight right turn 3 inches
-                encoderDrive(TURN_SPEED, -PathConstants.BlueFrontStage_RightSpike_TurnRight1   ,
-                        PathConstants.BlueFrontStage_RightSpike_TurnRight1, 5.0);
-                //Drive forward to point2 10 inches
-                encoderDrive(DRIVE_SPEED, PathConstants.BlueFrontStage_RightSpike_ForwardPoint2,
-                        PathConstants.BlueFrontStage_RightSpike_ForwardPoint2, 5.0);
-                //wrist down
-                wrist.setPosition(wristDownPosition);
-                sleep(1000);  // pause to display final telemetry message.
-                // Drive forward to point3 5 inches
-                encoderDrive(DRIVE_SPEED, PathConstants.BlueFrontStage_RightSpike_ForwardPoint3,
-                        PathConstants.BlueFrontStage_RightSpike_ForwardPoint3, 5.0);
-                runtime.reset();
-                // Open gripper and drop pixels
-                if (gripper.getPosition() != gripperOpenPosition) {
-                    gripper.setPosition(gripperOpenPosition);// Open Gripper to drop of pixel
-                }
-                sleep(100);  // pause to display final telemetry message.
+        {   // Step through each leg of the path,
+            // Note: Reverse movement is obtained by setting a negative distance (not speed)
+            //wrist down
+            wrist.setPosition(wristDownPosition);
+            sleep(1000);  // pause to display final telemetry message.
+            // Drive forward to point1 4 inches
+            encoderDrive(DRIVE_SPEED, PathConstants.BlueFrontStage_RightSpike_ForwardPoint1,
+                    PathConstants.BlueFrontStage_RightSpike_ForwardPoint1, 5.0);
+            //Slight right turn 3 inches
+            encoderDrive(TURN_SPEED, -PathConstants.BlueFrontStage_RightSpike_TurnRight1,
+                    PathConstants.BlueFrontStage_RightSpike_TurnRight1, 5.0);
+            //Drive forward to point2 10 inches
+            encoderDrive(DRIVE_SPEED, PathConstants.BlueFrontStage_RightSpike_ForwardPoint2,
+                    PathConstants.BlueFrontStage_RightSpike_ForwardPoint2, 5.0);
 
-                // Reverse backwards to point 3
-               /* encoderDrive(DRIVE_SPEED/3, PathConstants.BlueFrontStage_CenterSpike_BackwardPoint3,
-                        PathConstants.BlueFrontStage_CenterSpike_BackwardPoint3, 5.0);
-                sleep(100);  // pause to display final telemetry message.
-                // Get wrist Down
-                wrist.setPosition(wristDownPosition- PathConstants.WristDownOffset);
-                runtime.reset();
-                // Pick up pixel from ground
-                if (gripper.getPosition() != gripperClosedPosition) {
-                    gripper.setPosition(gripperClosedPosition);// Open Gripper to drop of pixel
-                }
-                sleep(1000);  // pause to display final telemetry message.
-                // Lift wrist
-                wrist.setPosition(wristUpPosition);
-                //back point4 12 inches
-                encoderDrive(DRIVE_SPEED, PathConstants.BlueFrontStage_RightSpike_BackwardPoint4,
-                        PathConstants.BlueFrontStage_RightSpike_BackwardPoint4, 5.0);
-                sleep(100);  // pause to display final telemetry message.
-                //turn left 3 inches
-                encoderDrive(TURN_SPEED, -PathConstants.BlueFrontStage_LeftSpike_TurnLeft1   ,
-                        PathConstants.BlueFrontStage_LeftSpike_TurnLeft1, 5.0);
-                //backward point5 4 inches
-                encoderDrive(DRIVE_SPEED, PathConstants.BlueFrontStage_RightSpike_BackwardPoint5,
-                        PathConstants.BlueFrontStage_RightSpike_BackwardPoint5, 5.0);
-                //turn left 90 degrees
-                encoderDrive(TURN_SPEED, -PathConstants.BlueFrontStage_CenterSpike_TurnLeft1   ,
-                        PathConstants.BlueFrontStage_CenterSpike_TurnLeft1, 5.0);
-                //forward 55 inches
-                encoderDrive(DRIVE_SPEED, PathConstants.BlueFrontStage_CenterSpike_ForwardPoint3,
-                        PathConstants.BlueFrontStage_CenterSpike_ForwardPoint3, 5.0);
-                //turn right 45 degrees
-                sleep(5000);
-                encoderDrive(TURN_SPEED, -PathConstants.BlueFrontStage_CenterSpike_TurnRight1   ,
-                        PathConstants.BlueFrontStage_CenterSpike_TurnRight1, 5.0);
-                //forward 20 inches
-                encoderDrive(DRIVE_SPEED, PathConstants.BlueFrontStage_CenterSpike_ForwardPoint4,
-                        PathConstants.BlueFrontStage_CenterSpike_ForwardPoint4, 5.0);
-                //Wrist down
-                wrist.setPosition(wristDownPosition);
-                sleep(1000);
-                runtime.reset();
-                //open gripper, release pixel
-                if (gripper.getPosition() != gripperOpenPosition) {
-                    gripper.setPosition(gripperOpenPosition);
-                }*/
-                sleep(1000);
+            // Drive forward to point3 5 inches
+            encoderDrive(DRIVE_SPEED, PathConstants.BlueFrontStage_RightSpike_ForwardPoint3,
+                    PathConstants.BlueFrontStage_RightSpike_ForwardPoint3, 5.0);
+            runtime.reset();
+            // Open gripper and drop pixels
+            if (gripper.getPosition() != gripperOpenPosition) {
+                gripper.setPosition(gripperOpenPosition);// Open Gripper to drop of pixel
             }
+            sleep(100);  // pause to display final telemetry message.
+
+            // Reverse backwards to point 3
+            encoderDrive(DRIVE_SPEED / 3, PathConstants.BlueFrontStage_CenterSpike_BackwardPoint3,
+                    PathConstants.BlueFrontStage_CenterSpike_BackwardPoint3, 5.0);
+            sleep(100);  // pause to display final telemetry message.
+            // Get wrist Down
+            wrist.setPosition(wristDownPosition - PathConstants.WristDownOffset);
+            runtime.reset();
+            // Pick up pixel from ground
+            if (gripper.getPosition() != gripperClosedPosition) {
+                gripper.setPosition(gripperClosedPosition);// Open Gripper to drop of pixel
+            }
+            sleep(1000);  // pause to display final telemetry message.
+            // Lift wrist
+            wrist.setPosition(wristUpPosition);
+            //back point4 12 inches
+            encoderDrive(DRIVE_SPEED, PathConstants.BlueFrontStage_RightSpike_BackwardPoint4,
+                    PathConstants.BlueFrontStage_RightSpike_BackwardPoint4, 5.0);
+            sleep(100);  // pause to display final telemetry message.
+            //turn left 3 inches
+            encoderDrive(TURN_SPEED, -PathConstants.BlueFrontStage_RightSpike_TurnLeft1,
+                    PathConstants.BlueFrontStage_RightSpike_TurnLeft1, 5.0);
+            //backward point5 4 inches
+            encoderDrive(DRIVE_SPEED, PathConstants.BlueFrontStage_RightSpike_BackwardPoint5,
+                    PathConstants.BlueFrontStage_RightSpike_BackwardPoint5, 5.0);
+            //turn left 90 degrees
+            encoderDrive(TURN_SPEED, -PathConstants.BlueFrontStage_RightSpike_TurnRight2,
+                    PathConstants.BlueFrontStage_RightSpike_TurnRight2, 5.0);
+            //forward 55 inches
+            encoderDrive(DRIVE_SPEED, PathConstants.BlueFrontStage_RightSpike_ForwardPoint3_2,
+                    PathConstants.BlueFrontStage_RightSpike_ForwardPoint3_2, 5.0);
+            //turn right 45 degrees
+            sleep(5000);
+            encoderDrive(TURN_SPEED, -PathConstants.BlueFrontStage_RightSpike_TurnLeft1_3,
+                    PathConstants.BlueFrontStage_RightSpike_TurnLeft1_3, 5.0);
+            //forward 20 inches
+            encoderDrive(DRIVE_SPEED, PathConstants.BlueFrontStage_RightSpike_ForwardPoint4,
+                    PathConstants.BlueFrontStage_RightSpike_ForwardPoint4, 5.0);
+            //Wrist down
+            wrist.setPosition(wristDownPosition);
+            sleep(1000);
+            runtime.reset();
+            //open gripper, release pixel
+            if (gripper.getPosition() != gripperOpenPosition) {
+                gripper.setPosition(gripperOpenPosition);
+            }
+            sleep(1000);
+        }
+
             terminateOpModeNow();
 
 

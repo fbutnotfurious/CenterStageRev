@@ -216,27 +216,37 @@ public class PathConstants {
     static final double BlueFrontStage_CenterSpike_ForwardPoint1=16.5;
     static final double BlueFrontStage_CenterSpike_ForwardPoint2=12.0;
     static final double BlueFrontStage_CenterSpike_BackwardPoint3=-3.0;
-    static final double BlueFrontStage_CenterSpike_BackwardPoint4=-26.0;
-    static final double BlueFrontStage_CenterSpike_TurnLeft1=11;
+    static final double BlueFrontStage_CenterSpike_BackwardPoint4=-21.0;//-26
+    static final double BlueFrontStage_CenterSpike_TurnLeft1=12;//12
     static final double BlueFrontStage_CenterSpike_ForwardPoint3=55;
-    static final double BlueFrontStage_CenterSpike_TurnRight1=-6;
+    static final double BlueFrontStage_CenterSpike_TurnRight1=-4.3;//-4.2
     static final double BlueFrontStage_CenterSpike_ForwardPoint4=36;
     // Left
     static final double BlueFrontStage_LeftSpike_ForwardPoint1=8;
     static final double BlueFrontStage_LeftSpike_TurnLeft1=3;
     static final double BlueFrontStage_LeftSpike_ForwardPoint2=11.0;
-    static final double BlueFrontStage_LeftSpike_TurnRight1=-2.5;
+    static final double BlueFrontStage_LeftSpike_TurnRight1=-3.55;//-3.2
     static final double BlueFrontStage_LeftSpike_ForwardPoint3=5;
-    static final double BlueFrontStage_LeftSpike_BackwardPoint4=-11.0;
-    static final double BlueFrontStage_LeftSpike_BackwardPoint5=-4.0;
+    static final double BlueFrontStage_LeftSpike_BackwardPoint4=-12.0;//-11
+    static final double BlueFrontStage_LeftSpike_BackwardPoint5=-5.5;
+
+    static final double BlueFrontStage_LeftSpike_TurnRight6=-10.1;
+    static final double BlueFrontStage_LeftSpike_ForwardPoint7=55;
+    static final double BlueFrontStage_LeftSpike_TurnLeft8=-4.3;
+    static final double BlueFrontStage_LeftSpike_ForwardPoint9=36;
+
     // Right
     static final double BlueFrontStage_RightSpike_ForwardPoint1=11;
-    static final double BlueFrontStage_RightSpike_TurnRight1=-5;
+    static final double BlueFrontStage_RightSpike_TurnRight1=-5.2;
     static final double BlueFrontStage_RightSpike_ForwardPoint2=5.0;
-    static final double BlueFrontStage_RightSpike_TurnLeft1=8;
+    static final double BlueFrontStage_RightSpike_TurnLeft1=3.6;//3.6
     static final double BlueFrontStage_RightSpike_ForwardPoint3=7;
-    static final double BlueFrontStage_RightSpike_BackwardPoint4=-12.0;
-    static final double BlueFrontStage_RightSpike_BackwardPoint5=-4.0;
+    static final double BlueFrontStage_RightSpike_BackwardPoint4=-11.0;//-12
+    static final double BlueFrontStage_RightSpike_BackwardPoint5=-5.5;
+    static final double BlueFrontStage_RightSpike_TurnRight2=12.6;//12.2
+    static final double BlueFrontStage_RightSpike_ForwardPoint3_2=55;
+    static final double BlueFrontStage_RightSpike_TurnLeft1_3=-4;
+    static final double BlueFrontStage_RightSpike_ForwardPoint4=36;
 
 }
 

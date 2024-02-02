@@ -77,7 +77,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Frontstage Red Robot Improved Turn: Auto Drive By Encoder Diff", group="Robot")
+@Autonomous(name="Frontstage Red Robot IMPROVED Turn: Auto Drive By Encoder Diff", group="Robot")
 //@Disabled
 public class Autonomous_Red_FrontStage_ImprovedTurn extends LinearOpMode {
 
